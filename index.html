@@ -4,40 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Clicker+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <section id="home" class="section home-section">
+    
     <img class="image-gradient" src="gradient.png" alt="gradient">
     <div class="layer-blur"></div>
-
-    <div class="contanier">
+    <div class="container">
         <header>
             <h1 class="logo">S</h1>
             <nav>
-                <a href="#1">1</a>
-                <a href="#2">2</a>
-                <a href="#3">3</a>
-                <a href="#4">4</a>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
             </nav>
         </header>
         <main>
-
-        <div class="content">
-            <div class="tag-box">
-                <div class="tag">INTRUCING</div>
+            <div class="hero-content">
+                <h2>Hi, I'm <span class="name">Aljaoui Soufian</span></h2>
+                <h3>I'm a <span id="typed-role">Full Stack Developer</span></h3>
+                <p>
+                    Passionate about building web apps, clean user interfaces, and scalable systems.
+                    I enjoy using modern tools like React, Node.js, and Next.js to bring ideas to life.
+                </p>
             </div>
-            <h1>ENAIL FOR <br>DEVELOPERS</h1>
-            <p class="description">
-                This character description generator will generate a fairly </p> 
-                However, some aspects of the descriptions will remain the same
-            </p>
-            <div class="buttons">
-                <a href="#" class="btn-get-started"></a>
+        </main>
+        <spline-viewer class="robot-3d" url="https://prod.spline.design/bdVhtK2rHIxn68R6/scene.splinecode"></spline-viewer>
+    </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="section-container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who I Am</h3>
+                    <p>I'm a passionate Full Stack Developer with expertise in modern web technologies. I love creating efficient, scalable solutions and bringing creative ideas to life through code.</p>
+                    <p>With a strong foundation in both frontend and backend development, I strive to build applications that not only look great but also perform exceptionally well.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">React</div>
+                    <div class="skill-item">Node.js</div>
+                    <div class="skill-item">Next.js</div>
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">TypeScript</div>
+                    <div class="skill-item">MongoDB</div>
+                    <div class="skill-item">PostgreSQL</div>
+                    <div class="skill-item">Docker</div>
+                </div>
             </div>
         </div>
-    </main>
-    <spline-viewer class="robot-3d" url="https://prod.spline.design/bdVhtK2rHIxn68R6/scene.splinecode"></spline-viewer>
-    </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+        <div class="section-container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>E-Commerce Platform</h3>
+                    <p>A full-stack e-commerce solution with user authentication, payment processing, and admin dashboard. Built with modern technologies for optimal performance.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Stripe</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Task Management App</h3>
+                    <p>A collaborative task management application with real-time updates, team collaboration features, and intuitive drag-and-drop interface.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Socket.io</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>Weather Dashboard</h3>
+                    <p>A responsive weather application with location-based forecasts, interactive maps, and beautiful data visualizations using modern APIs.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Chart.js</span>
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">CSS3</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.97/build/spline-viewer.js"></script>
 </body>
 </html>
