@@ -81,6 +81,9 @@ nav a {
   color: #e0e0e0;
 
 }
+nav .active {
+    color: var(--main-purple);
+}
 
 nav a::after {
   content: '';
@@ -89,7 +92,7 @@ nav a::after {
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #ffffff, #e0e0e0);
+  background: var(--muted-purple);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(-50%);
   margin-bottom: -2px;
@@ -97,12 +100,11 @@ nav a::after {
 }
 
 nav a:hover {
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: var(--muted-purple);
 }
 
 nav a:hover::after {
-  width: 95%;
+  width: 98%;
 }
 
 nav a:active {
