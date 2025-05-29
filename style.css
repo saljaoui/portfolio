@@ -420,6 +420,11 @@
           box-shadow: none;
       }
 
+      .logo img {
+          max-height: 40px;
+      }
+
+
       @keyframes scroll-down {
           0% {
               opacity: 0;
