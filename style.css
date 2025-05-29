@@ -313,7 +313,7 @@
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
-          bottom: 5%;
+          bottom: 3%;
           border-radius: 50px;
           cursor: pointer;
           box-shadow: 0 0 15px rgba(211, 211, 211, 0.4777);
@@ -339,53 +339,53 @@
           animation-delay: 0.5s;
       }
 
-.social-media {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
-            /* justify-content: center; */
-        }
+      .social-media {
+          display: flex;
+          gap: 1rem;
+          margin: 2rem 0;
+          /* justify-content: center; */
+      }
 
-        .social-media .btn {
-            width: 2.5rem;
-            height: 2.5rem;
-            background: transparent;
-            border: 2px solid var(--main-purple);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--main-purple);
-            text-decoration: none;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
+      .social-media .btn {
+          width: 2.5rem;
+          height: 2.5rem;
+          background: transparent;
+          border: 2px solid var(--main-purple);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--main-purple);
+          text-decoration: none;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          cursor: pointer;
+      }
 
-        .social-media .btn:hover::before {
-            transform: scale(1);
-        }
+      .social-media .btn:hover::before {
+          transform: scale(1);
+      }
 
-        .social-media .btn:hover {
-            color: black;
-            background: var(--main-purple);
-            box-shadow: 0 0 2rem var(--main-purple);
-            transform: translateY(-2px) scale(1.1);
-            border-color: transparent;
-        }
+      .social-media .btn:hover {
+          color: black;
+          background: var(--main-purple);
+          box-shadow: 0 0 2rem var(--main-purple);
+          transform: translateY(-2px) scale(1.1);
+          border-color: transparent;
+      }
 
-        .social-media svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
+      .social-media svg {
+          width: 24px;
+          height: 24px;
+          fill: currentColor;
+          transition: all 0.3s ease;
+          position: relative;
+          z-index: 1;
+      }
 
-        .social-media .btn:hover svg {
-            transform: rotate(360deg) scale(1.2);
-        }
+      .social-media .btn:hover svg {
+          transform: rotate(360deg) scale(1.2);
+      }
 
       .btn.insta svg {
           width: 28px;
@@ -397,7 +397,28 @@
           height: 20px;
       }
 
+      .btn-download-cv {
+          align-items: center;
+          justify-content: center;
+          padding: 12px 20px;
+          margin: 10px 5px 0;
+          font-size: 16px;
+          font-weight: bold;
+          border: none;
+          border-radius: 25px;
+          text-decoration: none;
+          color: black;
+          box-shadow: 0 0 2rem var(--main-purple);
+          background: var(--main-purple);
+          transition: all 0.3s ease;
+          cursor: pointer;
+      }
 
+      .btn-download-cv:hover {
+          background: var(--muted-purple);
+          /* box-shadow: 0 0 2rem var(--muted-purple); */
+          box-shadow: none;
+      }
 
       @keyframes scroll-down {
           0% {
