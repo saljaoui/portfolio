@@ -4,6 +4,16 @@
             box-sizing: border-box;
         }
 
+        :root {
+  --main-purple: #A259FF;
+  --background: #0F0F0F;
+  --text-primary: #F5F5F5;
+  --text-secondary: #BFA3FF;
+  --highlight: #5EDFFF;
+  --muted-purple: #6A42BF;
+  --border: #222222;
+}
+
         /* Set base font and smoothing */
         html, body {
             height: 100%;
@@ -11,7 +21,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             background-color: black;
-            color: #e7e7e7;
+            color: var(--text-primary);
             overflow-x: hidden;
         }
 
@@ -27,7 +37,7 @@
             position: absolute;
             top: 20%;
             right: 0;
-            box-shadow: 0 0 700px 15px white;
+            box-shadow: 0 0 700px 20px white;
             rotate: -30deg;
         }
 
@@ -52,25 +62,52 @@
             font-weight: 300;
         }
 
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            margin-left: -5%;
-        }
+nav {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  z-index: 10;
+}
 
-        nav a {
-            font-size: 1rem;
-            letter-spacing: 0.1rem;
-            transition: color 0.2s ease;
-            text-decoration: none;
-            color: inherit;
-        }
+nav a {
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  text-decoration: none;
+  color: inherit;
+  padding-bottom: 2px;
+  position: relative;
+  transition: color 0.3s ease;
+  margin-bottom: 10px;
+  color: #e0e0e0;
 
-        nav a:hover {
-            color: #a7a7a7;
-        }
+}
 
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ffffff, #e0e0e0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+  margin-bottom: -2px;
+  border-radius: 1px;
+}
+
+nav a:hover {
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+nav a:hover::after {
+  width: 95%;
+}
+
+nav a:active {
+  transform: translateY(0);
+}
         main {
           display: flex;
             flex-direction: column;
@@ -94,17 +131,17 @@
         .hero-content h2 {
             font-size: 3.5rem;
             font-weight: 500;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.3rem;
         }
 
         .hero-content h3 {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 400;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
 
         #typed-role {
-            color: #A259FF;
+            color: var(--text-secondary);
         }
 
         .hero-content p {
@@ -262,6 +299,50 @@
           padding: 0;
           min-height: 100vh;
         }
+.scroll-down {
+    height: 50px;
+    width: 30px;
+    border: 2px solid lightgray;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 8%;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(211, 211, 211, 0.4777);
+}
+.scroll-down::after,
+.scroll-down::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -20%;
+    height: 10px;
+    width: 10px;
+    border: 2px solid lightgray;
+    transform: translate(-50%, 100%) rotate(45deg);
+    border-top: transparent;
+    border-left: transparent;
+    animation: scroll-down 2s ease-in-out infinite;
+}
+.scroll-down::before {
+    top: -20%;
+    animation-delay: 0.5s;
+}
+
+@keyframes scroll-down {
+    0% {
+        opacity: 0;
+    }
+    30%, 60% {
+        opacity: 1;
+    }
+    100% {
+        top: 30%;
+        opacity: 0;
+    }
+}
+
 
         /* Responsive Design */
         @media (max-width: 768px) {
