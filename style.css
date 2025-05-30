@@ -436,12 +436,12 @@ main {
     color: var(--black);
     box-shadow: 0 0 2rem var(--main-purple);
     background: var(--main-purple);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     cursor: pointer;
 }
 
 .btn-download-cv:hover {
-    background: var(--muted-purple);
+    background: var(--main-purple);
     box-shadow: none;
 }
 
