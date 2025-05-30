@@ -13,7 +13,7 @@
     --highlight: #5EDFFF;
     --muted-purple: #6A42BF;
     --border: #222222;
-    
+
     /* Additional Colors */
     --white: #FFFFFF;
     --black: #000000;
@@ -23,7 +23,7 @@
     --dark-blue-2: #16213E;
     --blue-1: #0F3460;
     --blue-2: #16537E;
-    
+
     /* Opacity Variants */
     --white-10: rgba(255, 255, 255, 0.1);
     --white-20: rgba(255, 255, 255, 0.2);
@@ -455,9 +455,12 @@ main {
     0% {
         opacity: 0;
     }
-    30%, 60% {
+
+    30%,
+    60% {
         opacity: 1;
     }
+
     100% {
         top: 30%;
         opacity: 0;
@@ -470,12 +473,84 @@ main {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .projects-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .section-title {
         font-size: 2rem;
     }
 }
+
+
+/* === Loader Screen === */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: var(--background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+    z-index: 9999999;
+}
+
+.loader-logo img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+    filter:  drop-shadow(0 0 15px var(--gray-shadow));
+}
+
+.loader-progress {
+    width: 100%;
+    padding: 1rem 5%;
+    text-align: center;
+    position: absolute;
+    bottom: 5%;
+}
+
+
+.loader-bar {
+    height: 8px;
+    background: var(--main-purple);
+    width: 0;
+    transition: width 0.2s ease;
+    border-radius: 4px;
+}
+
+.loader-empty {
+    height: 8px;
+    background: var(--black);
+    border-top: 1px solid var(--dark-blue-1);
+    border-bottom: 1px solid var(--dark-blue-1);
+    width: 100%;
+    transition: width 0.2s ease;
+    border-radius: 4px;
+    margin-bottom: -8px;
+}
+
+.info-loader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+        margin-bottom: 1.5rem;
+}
+
+.info-loader h1 {
+    font-size: 25px;
+    font-weight: 500;
+    text-shadow: 0 0 15px var(--gray-shadow);
+}
+
+.loader-percent {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-shadow: 0 0 15px var(--gray-shadow);
+}
+
