@@ -798,7 +798,7 @@ main {
     /* position: absolute; */
     top: 290px;
     right: 50px;
-    width: min(350px, calc(100% - 250px));
+    width: min(350px, calc(100% - 275px));
     min-height: 160px;
     background: rgba(30, 30, 30, 0.8);
     border: 1px solid #333;
@@ -828,11 +828,6 @@ main {
 
 /* Connection line */
 .connection-line {
-    /* position: absolute; */
-    /* position: relative; */
-    top: 320px;
-    left: 150px;
-    right: 400px;
     height: 1px;
     width: 100%;
     border-radius: 1px;
@@ -842,7 +837,7 @@ main {
 .connection-line::before {
     content: '';
     position: absolute;
-    margin-left: -30px;
+    margin-left: -35px;
     margin-top: 25px;
     width: 0%;
     height: 1px;
@@ -900,17 +895,17 @@ main {
         background: linear-gradient(90deg, #a57be2, #a57be2);
     }
     60% {
-        width: 80%;
+        width: 75%;
         opacity: 1;
         background: linear-gradient(90deg, #9E6ACF, #9E6ACF);
     }
     90% {
-        width: 80%;
+        width: 75%;
         opacity: 1;
         background: linear-gradient(90deg, #a0a0a0, #a0a0a0);
     }
     100% {
-        width: 80%;
+        width: 75%;
         opacity: 1;
         background: linear-gradient(90deg, #888, #888);
     }
@@ -1093,12 +1088,11 @@ main {
 .stats-row {
     display: flex;
     padding-top: 160px;
-    margin-left: -80px;
-    /* width: 75vh; */
+    width: 75vh;
     /* justify-content: center; */
     flex-wrap: wrap;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: -30rem;
 }
 
 .stat-box {
