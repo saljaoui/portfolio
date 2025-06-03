@@ -203,7 +203,7 @@ main {
 }
 
 .section-container {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
     padding: 0 2rem;
 }
@@ -777,7 +777,7 @@ main {
 
 /* About section content */
 .purple-div {
-    position: absolute;
+    /* position: absolute; */
     top: 295px;
     left: 150px;
     width: 50px;
@@ -795,7 +795,7 @@ main {
 }
 
 .content-div {
-    position: absolute;
+    /* position: absolute; */
     top: 290px;
     right: 50px;
     width: min(350px, calc(100% - 250px));
@@ -828,35 +828,34 @@ main {
 
 /* Connection line */
 .connection-line {
-    position: absolute;
+    /* position: absolute; */
+    /* position: relative; */
     top: 320px;
     left: 150px;
     right: 400px;
     height: 1px;
-    background: transparent;
+    width: 100%;
     border-radius: 1px;
     z-index: 1;
 }
 
-/* Animated line that grows from 0% to 100% */
 .connection-line::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
+    margin-left: -30px;
+    margin-top: 25px;
     width: 0%;
-    height: 100%;
+    height: 1px;
     background: linear-gradient(90deg, #9333ea, #c084fc);
     border-radius: 1px;
     animation: drawLine 3s ease-in-out forwards;
 }
 
-/* Animated pulse that follows the line */
 .connection-line::after {
     content: '';
     position: absolute;
-    top: -1px;
-    left: -10px;
+    margin-left: 50px;
+    margin-top: 24px;
     width: 100px;
     height: 3px;
     background: linear-gradient(90deg, transparent, #c084fc, transparent);
@@ -864,6 +863,13 @@ main {
     opacity: 0;
     animation: pulse 3s ease-in-out infinite;
     animation-delay: 2s;
+}
+
+.about-content {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    padding: 1.5rem;
 }
 
 @keyframes pulse {
@@ -878,7 +884,7 @@ main {
         opacity: 1;
     }
     100% {
-        left: calc(100% - 20px);
+        left: calc(70% - 20px);
         opacity: 0;
     }
 }
@@ -894,17 +900,17 @@ main {
         background: linear-gradient(90deg, #a57be2, #a57be2);
     }
     60% {
-        width: 100%;
+        width: 80%;
         opacity: 1;
         background: linear-gradient(90deg, #9E6ACF, #9E6ACF);
     }
     90% {
-        width: 100%;
+        width: 80%;
         opacity: 1;
         background: linear-gradient(90deg, #a0a0a0, #a0a0a0);
     }
     100% {
-        width: 100%;
+        width: 80%;
         opacity: 1;
         background: linear-gradient(90deg, #888, #888);
     }
