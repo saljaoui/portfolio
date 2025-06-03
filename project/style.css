@@ -1088,7 +1088,7 @@ main {
 .stats-row {
     display: flex;
     padding-top: 160px;
-    width: 75vh;
+    width: 90vh;
     /* justify-content: center; */
     flex-wrap: wrap;
     gap: 2rem;
