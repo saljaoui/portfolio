@@ -183,7 +183,7 @@ main {
     background: linear-gradient(180deg, var(--background) 0%, var(--background) 30%, var(--black) 100%);
     position: relative;
     padding-top: 3rem;
-    height: 100vh;
+    height: max-content;
 }
 
 .projects-section {
