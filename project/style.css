@@ -182,6 +182,7 @@ main {
 .about-section {
     background: linear-gradient(180deg, var(--background) 0%, var(--background) 30%, var(--black) 100%);
     position: relative;
+    padding-top: 3rem;
     height: 100vh;
 }
 
@@ -209,9 +210,9 @@ main {
 
 .section-title {
     font-size: 3rem;
-    font-weight: 700;
+    font-weight: 500;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     color: var(--white);
 }
 
@@ -777,7 +778,7 @@ main {
 /* About section content */
 .purple-div {
     position: absolute;
-    top: 85px;
+    top: 295px;
     left: 150px;
     width: 50px;
     height: 50px;
@@ -795,7 +796,7 @@ main {
 
 .content-div {
     position: absolute;
-    top: 80px;
+    top: 290px;
     right: 50px;
     width: min(350px, calc(100% - 250px));
     min-height: 160px;
@@ -828,8 +829,8 @@ main {
 /* Connection line */
 .connection-line {
     position: absolute;
-    top: 110px;
-    left: 170px;
+    top: 320px;
+    left: 150px;
     right: 400px;
     height: 1px;
     background: transparent;
@@ -855,7 +856,7 @@ main {
     content: '';
     position: absolute;
     top: -1px;
-    left: 0;
+    left: -10px;
     width: 100px;
     height: 3px;
     background: linear-gradient(90deg, transparent, #c084fc, transparent);
@@ -867,10 +868,10 @@ main {
 
 @keyframes pulse {
     0% {
-        left: 0;
+        left: -20px;
         opacity: 0;
     }
-    10% {
+    20% {
         opacity: 1;
     }
     90% {
@@ -976,9 +977,6 @@ main {
     
     .purple-div {
         position: static;
-        margin: 20px auto 40px auto;
-        width: 100px;
-        height: 100px;
     }
     
     .content-div {
@@ -1033,9 +1031,7 @@ main {
     }
     
     .purple-div {
-        left: 30px;
-        width: 100px;
-        height: 100px;
+        left: 80px;
     }
     
     .content-div {
@@ -1048,3 +1044,83 @@ main {
         right: 330px;
     }
 }
+
+.available-work {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05); /* soft dark gray */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* subtle border */
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 7px;
+    color: #ccc; /* light silver-gray text */
+}
+
+
+.online {
+    width: 10px;
+    height: 10px;
+    background-color: var(--main-purple);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--main-purple);
+    animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.4);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.stats-row {
+    display: flex;
+    padding-top: 160px;
+    margin-left: -80px;
+    /* width: 75vh; */
+    /* justify-content: center; */
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat-box {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px 30px;
+    text-align: center;
+    min-width: 150px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.08);
+}
+
+.stat-box h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.stat-box p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+}
+
