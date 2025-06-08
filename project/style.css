@@ -187,18 +187,21 @@ main {
 }
 
 .projects-section {
-    background: linear-gradient(135deg, var(--blue-1) 0%, var(--blue-2) 100%);
+    background: var(--black);
     position: relative;
 }
 
 .skills-section {
-    background: linear-gradient(135deg, var(--dark-blue-2) 0%, var(--dark-blue-1) 100%);
+    /* background: linear-gradient(135deg, var(--dark-blue-2) 0%, var(--dark-blue-1) 100%);
+     */
+    background: var(--black);
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .contact-section {
     background: linear-gradient(135deg, var(--blue-2) 0%, var(--blue-1) 100%);
+    /* background:rgba(30, 30, 30, 0.8); */
     position: relative;
 }
 
@@ -224,17 +227,18 @@ main {
 }
 
 .skills-category {
-    background: var(--white-10);
     border-radius: 15px;
+    background:rgba(30, 30, 30, 0.8);
     padding: 2rem;
     border: 1px solid var(--white-20);
     backdrop-filter: blur(10px);
+    z-index: 1;
 }
 
 .skills-category h3 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: var(--main-purple);
+    color: var(--text-primary);
     text-align: center;
 }
 
@@ -263,7 +267,7 @@ main {
 
 .skill-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--main-purple), var(--highlight));
+    background: var(--main-purple);
     border-radius: 10px;
     transition: width 1.5s ease-in-out;
 }
@@ -1088,11 +1092,14 @@ main {
 .stats-row {
     display: flex;
     padding-top: 160px;
-    width: 90vh;
+    /* width: 90vh; */
     /* justify-content: center; */
     flex-wrap: wrap;
     gap: 2rem;
     margin-top: -30rem;
+
+    padding-right: 25%;
+    padding-left: 2rem;
 }
 
 .stat-box {
