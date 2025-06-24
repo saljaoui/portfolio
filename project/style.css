@@ -635,7 +635,7 @@ main {
 }
 
 .social-media .btn:hover {
-    color: var(--black);
+    color: var(--white);
     background: var(--main-purple);
     box-shadow: 0 0 2rem var(--main-purple);
     transform: translateY(-2px) scale(1.1);
@@ -677,15 +677,16 @@ main {
     border-radius: 25px;
     text-decoration: none;
     color: var(--black);
-    box-shadow: 0 0 2rem var(--main-purple);
     background: var(--main-purple);
     transition: all 0.5s ease;
     cursor: pointer;
 }
 
 .btn-download-cv:hover {
-    background: var(--main-purple);
-    box-shadow: none;
+    /* background: var(--main-purple); */
+    color: var(--white);
+    box-shadow: 0 0 2rem var(--main-purple);
+    /* box-shadow: none; */
 }
 
 /* Logo */
@@ -904,19 +905,19 @@ main {
     }
 
     60% {
-        width: 75%;
+        width: 80%;
         opacity: 1;
         background: linear-gradient(90deg, #9E6ACF, #9E6ACF);
     }
 
     90% {
-        width: 75%;
+        width: 80%;
         opacity: 1;
         background: linear-gradient(90deg, #a0a0a0, #a0a0a0);
     }
 
     100% {
-        width: 75%;
+        width: 80%;
         opacity: 1;
         background: linear-gradient(90deg, #888, #888);
     }
