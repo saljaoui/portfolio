@@ -1,6 +1,7 @@
 import './globals.css'
 import Navigation from '@/components/layout/Navigation.jsx'
 import Footer from '@/components/layout/Footer.jsx'
+import GlassCursor from '@/components/ui/MouseFollower.jsx'
 import { ReactNode } from 'react'
 
 export const metadata = {
