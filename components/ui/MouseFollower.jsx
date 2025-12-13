@@ -64,9 +64,12 @@ export default function MouseFollower() {
         className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-all duration-200 ease-out ${
           isHoveringButton ? 'w-10 h-10' : 'w-8 h-8'
         }`}
-        style={{ transform: 'translate3d(-50%, -50%, 0)' }}
+        style={{
+          transform: 'translate3d(-50%, -50%, 0)',
+          mixBlendMode: 'difference'
+        }}
       >
-        <div className="w-full h-full border-2 border-blue-500 rounded-full" />
+        <div className="w-full h-full border-2 border-white rounded-full" />
       </div>
 
       {/* Inner dot - instant follow, fills ring on button hover */}
@@ -75,9 +78,12 @@ export default function MouseFollower() {
         className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-all duration-200 ease-out ${
           isHoveringButton ? 'w-4 h-4' : 'w-2 h-2'
         }`}
-        style={{ transform: 'translate3d(-50%, -50%, 0)' }}
+        style={{
+          transform: 'translate3d(-50%, -50%, 0)',
+          mixBlendMode: 'difference'
+        }}
       >
-        <div className="w-full h-full bg-blue-500 rounded-full" />
+        <div className="w-full h-full bg-white rounded-full" />
       </div>
     </>
   )
