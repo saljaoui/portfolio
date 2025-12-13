@@ -61,7 +61,7 @@ export default function MouseFollower() {
       {/* Outer ring - smooth follow with hardware acceleration */}
       <div
         ref={ringRef}
-        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform ${
+        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-all duration-200 ease-out ${
           isHoveringButton ? 'w-10 h-10' : 'w-8 h-8'
         }`}
         style={{ transform: 'translate3d(-50%, -50%, 0)' }}
@@ -72,7 +72,7 @@ export default function MouseFollower() {
       {/* Inner dot - instant follow, fills ring on button hover */}
       <div
         ref={dotRef}
-        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform ${
+        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-all duration-200 ease-out ${
           isHoveringButton ? 'w-4 h-4' : 'w-2 h-2'
         }`}
         style={{ transform: 'translate3d(-50%, -50%, 0)' }}
