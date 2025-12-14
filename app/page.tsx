@@ -19,7 +19,7 @@ export default function Home() {
      INPUT: WHEEL + KEYBOARD
   =============================== */
   useEffect(() => {
-    const handleWheel = (e) => {
+    const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       if (isTransitioningRef.current) return;
 
@@ -51,7 +51,7 @@ export default function Home() {
       }, 2000);
     };
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (isTransitioningRef.current) return;
 
       if (e.key === "ArrowDown" && currentSection < totalSections - 1) {
