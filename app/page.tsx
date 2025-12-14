@@ -12,6 +12,7 @@ export default function Home() {
   const isTransitioningRef = useRef(false);
   const scrollIntentRef = useRef(0);
   const prevSectionRef = useRef(0);
+  const hasInteractedRef = useRef(false);
 
   const totalSections = 5;
 
@@ -21,6 +22,8 @@ export default function Home() {
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
+
+      hasInteractedRef.current = true;
       if (isTransitioningRef.current) return;
 
       scrollIntentRef.current += e.deltaY;
@@ -52,6 +55,8 @@ export default function Home() {
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+
+      hasInteractedRef.current = true;
       if (isTransitioningRef.current) return;
 
       if (e.key === "ArrowDown" && currentSection < totalSections - 1) {
@@ -90,6 +95,11 @@ export default function Home() {
   =============================== */
   useEffect(() => {
     const baseX = -currentSection * window.innerWidth;
+
+    if (!hasInteractedRef.current) {
+      return;
+    }
+
     const direction =
       currentSection > prevSectionRef.current ? -1 : 1;
 
@@ -226,8 +236,8 @@ export default function Home() {
               }
             }}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${i === currentSection
-                ? "bg-white scale-150"
-                : "bg-gray-500 hover:bg-gray-300"
+              ? "bg-white scale-150"
+              : "bg-gray-500 hover:bg-gray-300"
               }`}
             aria-label={`Go to section ${i + 1}`}
           />

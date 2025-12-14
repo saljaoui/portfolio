@@ -1,6 +1,6 @@
 import './globals.css'
 import Navigation from '@/components/layout/Navigation.jsx'
-import Footer from '@/components/layout/Footer.jsx'
+import MouseFollower from '@/components/ui/MouseFollower.jsx'
 
 import { ReactNode } from 'react'
 
@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-50">
+        <MouseFollower />
         <Navigation />
           {children}
         {/* <Footer /> */}
