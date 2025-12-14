@@ -1,12 +1,13 @@
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100">
+    <section className="bg-gradient-to-br from-purple-600 to-purple-900">
       <div className="text-center">
-        <h1 className="text-5xl font-bold mb-4">Hi, I'm Your Name</h1>
-        <p className="text-xl text-gray-600 mb-8">Full Stack Developer</p>
-        <button className="bg-blue-600 text-white px-8 py-3 rounded-lg">
-          View My Work
-        </button>
+        <h1 className="text-7xl font-bold text-white mb-4">
+          Hello, I'm Your Name
+        </h1>
+        <p className="text-2xl text-white">
+          Web Developer
+        </p>
       </div>
     </section>
   )

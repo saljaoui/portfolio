@@ -7,13 +7,15 @@ import MouseFollower from '@/components/ui/MouseFollower.jsx'
 
 export default function Home() {
   return (
-    <main>
+    <main className="scroll-wrapper">
       <MouseFollower />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+      <div className="scroll-container">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </div>
     </main>
   )
 }
