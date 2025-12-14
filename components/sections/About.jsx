@@ -1,7 +1,7 @@
 export default function About() {
   return (
-    <section className="horizontal-section">
-      <div className="horizontal-content">
+    <section className="min-w-svw">
+      <div className="">
         {/* Panel 1 */}
         <div className="horizontal-panel bg-gradient-to-br from-pink-500 to-red-500">
           <h2 className="text-6xl font-bold text-white mb-4">

@@ -1,28 +1,13 @@
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 px-4 bg-gray-50">
-      <div className="max-w-2xl mx-auto">
-        <h2 className="text-4xl font-bold mb-8">Contact Me</h2>
-        <form className="space-y-4">
-          <input 
-            type="text" 
-            placeholder="Your Name" 
-            className="w-full p-3 border rounded-lg"
-          />
-          <input 
-            type="email" 
-            placeholder="Your Email" 
-            className="w-full p-3 border rounded-lg"
-          />
-          <textarea 
-            placeholder="Your Message" 
-            rows="5"
-            className="w-full p-3 border rounded-lg"
-          />
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg w-full">
-            Send Message
-          </button>
-        </form>
+    <section className="min-w-svw bg-gradient-to-br from-orange-500 to-red-500">
+      <div className="text-center max-w-4xl px-8">
+        <h2 className="text-6xl font-bold text-white mb-6">
+          Get In Touch
+        </h2>
+        <p className="text-xl text-white">
+          Let's work together
+        </p>
       </div>
     </section>
   )
