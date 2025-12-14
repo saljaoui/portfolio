@@ -6,39 +6,35 @@ export default function Home() {
   const mainRef = useRef(null);
   const [translateX, setTranslateX] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
-  const scrollTimeoutRef = useRef(null);
+  const isTransitioningRef = useRef(false);
   const totalSections = 5;
 
   useEffect(() => {
-    let isTransitioning = false;
-    
     const handleWheel = (e) => {
       e.preventDefault();
       
-      // If already transitioning, ignore all scroll events
-      if (isTransitioning) return;
+      // Check the ref value instead of local variable
+      if (isTransitioningRef.current) return;
       
-      // Calculate new section based on scroll direction
       const delta = e.deltaY;
       
-      if (Math.abs(delta) > 5) { // Lower threshold but strict control
-        isTransitioning = true;
+      if (Math.abs(delta) > 5) {
+        isTransitioningRef.current = true;
         
-        if (delta > 0 && currentSection < totalSections - 1) {
-          // Scroll down - go to next section
-          setCurrentSection(prev => prev + 1);
-        } else if (delta < 0 && currentSection > 0) {
-          // Scroll up - go to previous section
-          setCurrentSection(prev => prev - 1);
-        } else {
+        setCurrentSection(prev => {
+          if (delta > 0 && prev < totalSections - 1) {
+            return prev + 1;
+          } else if (delta < 0 && prev > 0) {
+            return prev - 1;
+          }
           // If at boundary, release lock immediately
-          isTransitioning = false;
-          return;
-        }
+          isTransitioningRef.current = false;
+          return prev;
+        });
         
         // Wait for full transition to complete before allowing next scroll
         setTimeout(() => { 
-          isTransitioning = false; 
+          isTransitioningRef.current = false;
         }, 1300);
       }
     };
@@ -61,7 +57,6 @@ export default function Home() {
 
     setScrollHeight();
     
-    // Add wheel event listener with passive: false to allow preventDefault
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('resize', setScrollHeight);
@@ -73,9 +68,8 @@ export default function Home() {
       document.body.style.height = '';
       document.body.style.overflow = '';
     };
-  }, [currentSection]);
+  }, [currentSection, totalSections]);
 
-  // Update translateX when section changes
   useEffect(() => {
     const targetScroll = currentSection * window.innerWidth;
     setTranslateX(-targetScroll);
