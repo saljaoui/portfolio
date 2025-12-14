@@ -35,7 +35,7 @@ export default function Home() {
         // Wait for full transition to complete before allowing next scroll
         setTimeout(() => { 
           isTransitioningRef.current = false;
-        }, 1300);
+        }, 1000);
       }
     };
 
@@ -79,9 +79,10 @@ export default function Home() {
     <main 
       ref={mainRef}
       className="fixed top-0 left-0 min-h-screen flex flex-col lg:flex-row w-full lg:w-fit h-auto lg:h-full"
-      style={{
+  style={{
         transform: `translateX(${translateX}px)`,
         transition: 'transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        willChange: 'transform',
       }}
     >
       {/* Hero Section - Black Background */}
