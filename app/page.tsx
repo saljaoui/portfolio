@@ -1,118 +1,196 @@
-'use client';
+"use client";
 
 import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const mainRef = useRef(null);
+  const [translateX, setTranslateX] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
-  const throttleRef = useRef(false);
-
-  const sections = ['Hero', 'About', 'Projects'];
-  const colors = ['bg-slate-900', 'bg-emerald-700', 'bg-rose-700'];
+  const scrollTimeoutRef = useRef(null);
+  const totalSections = 5;
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      // Throttle to prevent multiple triggers
-      if (throttleRef.current) return;
+    let isTransitioning = false;
+    
+    const handleWheel = (e) => {
+      e.preventDefault();
       
-      throttleRef.current = true;
+      // If already transitioning, ignore all scroll events
+      if (isTransitioning) return;
       
-      setTimeout(() => {
-        throttleRef.current = false;
-      }, 1000); // 1 second delay between scrolls
-
-      const delta = event.deltaY;
-      let newSection = currentSection;
-
-      // Determine next section
-      if (delta > 0 && currentSection < sections.length - 1) {
-        newSection = currentSection + 1;
-      } else if (delta < 0 && currentSection > 0) {
-        newSection = currentSection - 1;
-      }
-
-      // Scroll to new section
-      if (newSection !== currentSection) {
-        setCurrentSection(newSection);
-        container.scrollTo({
-          left: newSection * window.innerWidth,
-          behavior: 'smooth'
-        });
+      // Calculate new section based on scroll direction
+      const delta = e.deltaY;
+      
+      if (Math.abs(delta) > 5) { // Lower threshold but strict control
+        isTransitioning = true;
+        
+        if (delta > 0 && currentSection < totalSections - 1) {
+          // Scroll down - go to next section
+          setCurrentSection(prev => prev + 1);
+        } else if (delta < 0 && currentSection > 0) {
+          // Scroll up - go to previous section
+          setCurrentSection(prev => prev - 1);
+        } else {
+          // If at boundary, release lock immediately
+          isTransitioning = false;
+          return;
+        }
+        
+        // Wait for full transition to complete before allowing next scroll
+        setTimeout(() => { 
+          isTransitioning = false; 
+        }, 1300);
       }
     };
 
-    // Add event listener to container instead of window
-    container.addEventListener('wheel', handleWheel, { passive: false });
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowDown' && currentSection < totalSections - 1) {
+        e.preventDefault();
+        setCurrentSection(prev => prev + 1);
+      } else if (e.key === 'ArrowUp' && currentSection > 0) {
+        e.preventDefault();
+        setCurrentSection(prev => prev - 1);
+      }
+    };
+
+    const setScrollHeight = () => {
+      if (!mainRef.current) return;
+      document.body.style.height = '100vh';
+      document.body.style.overflow = 'hidden';
+    };
+
+    setScrollHeight();
     
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
+    // Add wheel event listener with passive: false to allow preventDefault
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', setScrollHeight);
 
     return () => {
-      container.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', setScrollHeight);
+      document.body.style.height = '';
       document.body.style.overflow = '';
     };
-  }, [currentSection, sections.length]);
+  }, [currentSection]);
 
-  const goToSection = (index: number) => {
-    const container = containerRef.current;
-    if (!container) return;
-    
-    setCurrentSection(index);
-    container.scrollTo({
-      left: index * window.innerWidth,
-      behavior: 'smooth'
-    });
-  };
+  // Update translateX when section changes
+  useEffect(() => {
+    const targetScroll = currentSection * window.innerWidth;
+    setTranslateX(-targetScroll);
+  }, [currentSection]);
 
   return (
-    <>
-      <div
-        ref={containerRef}
-        className="flex h-screen overflow-x-auto overflow-y-hidden snap-x snap-mandatory"
-        style={{ 
-          scrollBehavior: 'smooth',
-          width: '100vw',
-          overflow: 'hidden'
-        }}
-      >
-        {sections.map((section, index) => (
-          <section
-            key={section}
-            className={`flex h-screen w-screen flex-shrink-0 snap-start items-center justify-center ${colors[index]} text-5xl font-bold text-white flex-col gap-4`}
-          >
-            <div>{section}</div>
-            <div className="text-2xl">Section {index + 1} of {sections.length}</div>
-          </section>
-        ))}
-      </div>
+    <main 
+      ref={mainRef}
+      className="fixed top-0 left-0 min-h-screen flex flex-col lg:flex-row w-full lg:w-fit h-auto lg:h-full"
+      style={{
+        transform: `translateX(${translateX}px)`,
+        transition: 'transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      }}
+    >
+      {/* Hero Section - Black Background */}
+      <section className="w-full h-auto min-h-screen lg:w-screen lg:h-screen flex-shrink-0 bg-black text-white overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-4xl font-bold mb-4">Hero Section</h1>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+            Scroll to explore
+          </p>
+        </div>
+      </section>
 
-      {/* Navigation Dots */}
-      <div className="fixed bottom-8 left-1/2 flex -translate-x-1/2 gap-3 z-10">
-        {sections.map((_, index) => (
+      {/* About Section - White Background */}
+      <section
+        id="about"
+        className="w-full h-auto min-h-screen lg:w-screen lg:h-screen flex-shrink-0 bg-white text-black relative overflow-hidden flex items-center justify-center"
+      >
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
+            backgroundSize: "30px 30px",
+          }}
+        ></div>
+        <div className="relative z-10 text-center">
+          <h2 className="text-4xl font-bold mb-4">About</h2>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+            About Section
+          </p>
+        </div>
+      </section>
+
+      {/* Tech Stack Section - Dark Gray Background */}
+      <section
+        id="tech"
+        className="w-full h-auto min-h-screen lg:w-screen lg:h-screen flex-shrink-0 bg-neutral-950 text-white relative flex items-center justify-center"
+      >
+        <div
+          className="absolute inset-0 pointer-events-none opacity-20"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
+            backgroundSize: "50px 50px",
+          }}
+        ></div>
+        <div className="relative z-10 text-center">
+          <h2 className="text-4xl font-bold mb-4">Tech Stack</h2>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+            Tech Stack Section
+          </p>
+        </div>
+      </section>
+
+      {/* Projects Section - Black Background */}
+      <section
+        id="projects"
+        className="w-full h-auto min-h-screen lg:w-screen lg:h-screen flex-shrink-0 bg-black text-white relative flex items-center justify-center"
+      >
+        <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay"></div>
+        <div className="relative z-10 text-center">
+          <h2 className="text-4xl font-bold mb-4">Projects</h2>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+            Projects Section
+          </p>
+        </div>
+      </section>
+
+      {/* Contact Section - White Background */}
+      <section
+        id="contact"
+        className="w-full h-auto min-h-screen lg:w-screen lg:h-screen flex-shrink-0 bg-white text-black relative flex items-center justify-center"
+      >
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        ></div>
+        <div className="relative z-10 text-center">
+          <h2 className="text-4xl font-bold mb-4">Contact</h2>
+          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+            Contact Section
+          </p>
+        </div>
+      </section>
+
+      {/* Section Indicators */}
+      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+        {[...Array(totalSections)].map((_, i) => (
           <button
-            key={index}
-            onClick={() => goToSection(index)}
-            className={`h-3 w-3 rounded-full transition-all ${
-              currentSection === index
-                ? 'w-8 bg-white'
-                : 'bg-white/40 hover:bg-white/60'
+            key={i}
+            onClick={() => setCurrentSection(i)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              i === currentSection 
+                ? 'bg-white scale-150' 
+                : 'bg-gray-500 hover:bg-gray-300'
             }`}
-            aria-label={`Go to ${sections[index]}`}
+            aria-label={`Go to section ${i + 1}`}
           />
         ))}
       </div>
-
-      {/* Debug Info */}
-      <div className="z-50 fixed top-4 right-4 bg-black/80 text-white p-4 rounded text-sm font-mono">
-        <div>Current Section: {currentSection}</div>
-        <div>Scroll and check console!</div>
-      </div>
-    </>
+    </main>
   );
 }
