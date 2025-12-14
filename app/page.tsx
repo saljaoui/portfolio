@@ -109,7 +109,7 @@ export default function Home() {
       </div>
 
       {/* Debug Info */}
-      <div className="z-50 fixed top-4 right-4 bg-black/80 text-white p-4 rounded text-sm font-mono z-10">
+      <div className="z-50 fixed top-4 right-4 bg-black/80 text-white p-4 rounded text-sm font-mono">
         <div>Current Section: {currentSection}</div>
         <div>Scroll and check console!</div>
       </div>
