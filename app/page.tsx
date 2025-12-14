@@ -11,6 +11,7 @@ export default function Home() {
 
   const isTransitioningRef = useRef(false);
   const scrollIntentRef = useRef(0);
+  const prevSectionRef = useRef(0);
 
   const totalSections = 5;
 
@@ -89,14 +90,18 @@ export default function Home() {
   =============================== */
   useEffect(() => {
     const baseX = -currentSection * window.innerWidth;
+    const direction =
+      currentSection > prevSectionRef.current ? -1 : 1;
+
+    prevSectionRef.current = currentSection;
 
     setBounceOffset(0);
     setTranslateX(baseX);
 
-    // premium settle (slow + natural)
-    const t1 = setTimeout(() => setBounceOffset(-15), 1200);
-    const t2 = setTimeout(() => setBounceOffset(5), 1500);
-    const t3 = setTimeout(() => setBounceOffset(0), 1600);
+    // direction-aware settle
+    const t1 = setTimeout(() => setBounceOffset(15 * direction), 1200);
+    const t2 = setTimeout(() => setBounceOffset(-5 * direction), 1500);
+    const t3 = setTimeout(() => setBounceOffset(0), 1650);
 
     return () => {
       clearTimeout(t1);
@@ -206,29 +211,28 @@ export default function Home() {
           </div>
         </section>
       </main>
-              {/* Section Indicators */}
-        <div className="fixed bottom-8 right-1/2 -translate-y-1/2 z-50 flex gap-4">
-          {[...Array(totalSections)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                if (!isTransitioningRef.current) {
-                  isTransitioningRef.current = true;
-                  setCurrentSection(i);
-                  setTimeout(() => {
-                    isTransitioningRef.current = false;
-                  }, 2000);
-                }
-              }}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                i === currentSection
-                  ? "bg-white scale-150"
-                  : "bg-gray-500 hover:bg-gray-300"
+      {/* Section Indicators */}
+      <div className="fixed bottom-8 right-1/2 -translate-y-1/2 z-50 flex gap-4">
+        {[...Array(totalSections)].map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              if (!isTransitioningRef.current) {
+                isTransitioningRef.current = true;
+                setCurrentSection(i);
+                setTimeout(() => {
+                  isTransitioningRef.current = false;
+                }, 2000);
+              }
+            }}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${i === currentSection
+                ? "bg-white scale-150"
+                : "bg-gray-500 hover:bg-gray-300"
               }`}
-              aria-label={`Go to section ${i + 1}`}
-            />
-          ))}
-        </div>
+            aria-label={`Go to section ${i + 1}`}
+          />
+        ))}
+      </div>
     </>
   );
 }
