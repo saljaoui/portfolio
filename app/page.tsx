@@ -1,6 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Hero from "@/components/sections/Hero";
+import About from "@/components/sections/About";
+import Contact from "@/components/sections/Contact";
+import Projects from "@/components/sections/Projects";
+import Skills from "@/components/sections/Skills";
 
 export default function Home() {
   const mainRef = useRef(null);
@@ -137,79 +142,23 @@ export default function Home() {
           willChange: "transform",
         }}
       >
+
         {/* Hero Section */}
-        <section className="w-screen h-screen flex-shrink-0 bg-black text-white overflow-hidden flex items-center justify-center relative">
-          <div className="absolute inset-0 z-0 pointer-events-none opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-          <div className="relative z-10 text-center">
-            <h1 className="text-6xl font-bold mb-4">Hero Section</h1>
-            <p className="text-sm font-mono text-gray-400 uppercase tracking-widest">
-              Scroll down to explore
-            </p>
-          </div>
-        </section>
+        <Hero />
 
         {/* About Section */}
-        <section id="about" className="w-screen h-screen flex-shrink-0 bg-white text-black relative overflow-hidden flex items-center justify-center">
-          <div
-            className="absolute inset-0 opacity-[0.03] pointer-events-none"
-            style={{
-              backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
-              backgroundSize: "30px 30px",
-            }}
-          ></div>
-          <div className="relative z-10 text-center">
-            <h2 className="text-6xl font-bold mb-4">About</h2>
-            <p className="text-sm font-mono text-gray-600 uppercase tracking-widest">
-              Learn more about me
-            </p>
-          </div>
-        </section>
+        <About />
 
         {/* Tech Stack Section */}
-        <section id="tech" className="w-screen h-screen flex-shrink-0 bg-neutral-950 text-white relative flex items-center justify-center">
-          <div
-            className="absolute inset-0 pointer-events-none opacity-20"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
-              backgroundSize: "50px 50px",
-            }}
-          ></div>
-          <div className="relative z-10 text-center">
-            <h2 className="text-6xl font-bold mb-4">Tech Stack</h2>
-            <p className="text-sm font-mono text-gray-500 uppercase tracking-widest">
-              Spring Boot, Angular, Docker
-            </p>
-          </div>
-        </section>
+
+        <Skills />
 
         {/* Projects Section */}
-        <section id="projects" className="w-screen h-screen flex-shrink-0 bg-black text-white relative flex items-center justify-center">
-          <div className="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay"></div>
-          <div className="relative z-10 text-center">
-            <h2 className="text-6xl font-bold mb-4">Projects</h2>
-            <p className="text-sm font-mono text-gray-500 uppercase tracking-widest">
-              01Blog, Portfolio, More
-            </p>
-          </div>
-        </section>
+        <Projects />
 
         {/* Contact Section */}
-        <section id="contact" className="w-screen h-screen flex-shrink-0 bg-white text-black relative flex items-center justify-center">
-          <div
-            className="absolute inset-0 opacity-[0.03] pointer-events-none"
-            style={{
-              backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
-              backgroundSize: "20px 20px",
-            }}
-          ></div>
-          <div className="relative z-10 text-center">
-            <h2 className="text-6xl font-bold mb-4">Contact</h2>
-            <p className="text-sm font-mono text-gray-600 uppercase tracking-widest">
-              Let's work together
-            </p>
-          </div>
-        </section>
+        <Contact />
+
       </main>
       {/* Section Indicators */}
       <div className="fixed bottom-8 right-1/2 -translate-y-1/2 z-50 flex gap-4">
