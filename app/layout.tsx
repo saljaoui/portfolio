@@ -18,7 +18,6 @@ export default function RootLayout({
         <MouseFollower />
         <Navigation />
           {children}
-        {/* <Footer /> */}
       </body>
     </html>
   )

@@ -124,17 +124,7 @@ export default function Home() {
      RENDER
   =============================== */
   return (
-    <>
-      <style jsx>{`
-        @keyframes oscillate {
-          0% { transform: translateX(0px); }
-          25% { transform: translateX(50px); }
-          50% { transform: translateX(-50px); }
-          75% { transform: translateX(30px); }
-          100% { transform: translateX(0px); }
-        }
-      `}</style>
-
+    <div>
       <main
         ref={mainRef}
         className="fixed top-0 left-0 min-h-screen flex flex-row w-fit h-full"
@@ -243,6 +233,6 @@ export default function Home() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

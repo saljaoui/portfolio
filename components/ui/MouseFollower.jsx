@@ -90,7 +90,7 @@ export default function SmoothMouseFollower() {
       <div
         ref={ringRef}
         className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-[width,height] duration-200 ${
-          isHovering ? 'w-14 h-14' : 'w-10 h-10'
+          isHovering ? 'w-4 h-4' : 'w-10 h-10'
         }`}
         style={{
           mixBlendMode: 'difference',
@@ -105,7 +105,7 @@ export default function SmoothMouseFollower() {
       <div
         ref={dotRef}
         className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-[width,height] duration-200 ${
-          isHovering ? 'w-6 h-6' : 'w-2 h-2'
+          isHovering ? 'w-8 h-8' : 'w-2 h-2'
         }`}
         style={{
           mixBlendMode: 'difference',
