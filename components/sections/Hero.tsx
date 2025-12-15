@@ -6,8 +6,6 @@ export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const imageContainerRef = useRef<HTMLDivElement>(null);
-  const [rotX, setRotX] = useState(0);
-  const [rotY, setRotY] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,19 +29,6 @@ export default function Hero() {
       // Canvas mouse tracking
       mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseRef.current.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
-
-      // Image 3D rotation tracking
-      if (imageContainerRef.current) {
-        const rect = imageContainerRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        const angleX = ((e.clientY - centerY) / (rect.height / 2)) * 2;
-        const angleY = ((e.clientX - centerX) / (rect.width / 2)) * 2;
-
-        setRotX(-angleX);
-        setRotY(angleY);
-      }
     };
     window.addEventListener("mousemove", handleMouseMove);
 
@@ -187,6 +172,25 @@ export default function Hero() {
         ref={canvasRef}
         className="absolute top-0 left-0 w-full h-full"
       />
+      {/* Dramatic light from top left */}
+{/* Light effects */}
+<div className="absolute inset-0 pointer-events-none overflow-hidden">
+  {/* Main light from top left */}
+  <div 
+    className="absolute -top-20 -left-20 w-[600px] h-[600px]"
+    style={{
+      background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%)',
+      filter: 'blur(40px)',
+    }}
+  />
+  {/* Secondary glow */}
+  <div 
+    className="absolute top-0 left-0 w-1/3 h-1/3"
+    style={{
+      background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%)',
+    }}
+  />
+</div>
 
       {/* Main Content */}
       <div className="absolute inset-0 flex items-center justify-between px-12 z-10">
@@ -200,10 +204,10 @@ export default function Hero() {
           </div>
 
           <h1
-            className="text-5xl font-light text-white mb-4"
+            className="text-5xl font-semibold text-white mb-4"
             style={{ letterSpacing: "-0.02em" }}
           >
-            FULL <span className="italic font-light">STACK</span>
+            FULL <span className="italic font-semibold">STACK</span>
           </h1>
           <h1
             className="text-5xl font-light text-white/10 mb-12"
@@ -215,6 +219,9 @@ export default function Hero() {
             DEVELOPER
           </h1>
 
+          <p className="text-white/40 text-xs tracking-wider mt-8">
+            /// DOWNLOAD RESUME
+          </p>
           <div className="flex gap-4 mt-4">
             <button className="px-6 py-3 border border-white/30 text-white text-sm tracking-wider hover:bg-white hover:text-black transition-all">
               ENGLISH VERSION ↓
@@ -223,20 +230,11 @@ export default function Hero() {
               FRANÇAIS ↓
             </button>
           </div>
-
-          <p className="text-white/40 text-xs tracking-wider mt-8">
-            /// DOWNLOAD RESUME
-          </p>
         </div>
 
-        {/* Center Image with 3D Rotation */}
         <div
           className="flex-shrink-0 relative"
           ref={imageContainerRef}
-          onMouseLeave={() => {
-            setRotX(0);
-            setRotY(0);
-          }}
         >
           <div
             className="relative w-[300px] h-[450px] lg:w-[500px] lg:h-[500px] group"
@@ -244,12 +242,8 @@ export default function Hero() {
               perspective: "1000px",
             }}
           >
-            {/* Your image with 3D rotation */}
             <div
               style={{
-                transform: `rotateX(${rotX}deg) rotateY(${rotY}deg)`,
-                transition: "transform 0.1s ease-out",
-                transformStyle: "preserve-3d",
                 width: "100%",
                 height: "100%",
               }}
@@ -257,7 +251,7 @@ export default function Hero() {
               <img
                 src="/images/my_image.png"
                 alt="Your Image"
-                className="w-full h-full object-contain rounded-lg shadow-2xl"
+                className="w-full h-full object-contain rounded-lg shadow-2xl scale-x-[-1]"
                 style={{
                   boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
                 }}
