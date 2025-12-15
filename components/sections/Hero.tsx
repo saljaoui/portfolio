@@ -5,11 +5,15 @@ import { useRef, useEffect, useState } from "react";
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const [rotX, setRotX] = useState(0);
+  const [rotY, setRotY] = useState(0);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationFrameId: number;
@@ -21,27 +25,43 @@ export default function Hero() {
       canvas.height = window.innerHeight;
     };
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     const handleMouseMove = (e: MouseEvent) => {
+      // Canvas mouse tracking
       mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseRef.current.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+
+      // Image 3D rotation tracking
+      if (imageContainerRef.current) {
+        const rect = imageContainerRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const angleX = ((e.clientY - centerY) / (rect.height / 2)) * 2;
+        const angleY = ((e.clientX - centerX) / (rect.width / 2)) * 2;
+
+        setRotX(-angleX);
+        setRotY(angleY);
+      }
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
     const draw = () => {
       time += 0.016;
 
       // Smooth mouse interpolation
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
+      mouseRef.current.x +=
+        (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
+      mouseRef.current.y +=
+        (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
       const mouse = mouseRef.current;
       const introEase = Math.min(time / 2, 1);
       const easeOut = 1 - Math.pow(1 - introEase, 3);
 
       // Clear canvas
-      ctx.fillStyle = '#000000';
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const centerX = canvas.width / 2;
@@ -52,9 +72,9 @@ export default function Hero() {
       const mouseDist = Math.sqrt(mouse.x ** 2 + mouse.y ** 2);
       const mouseAngle = Math.atan2(mouse.y, mouse.x);
 
-      // Main spirograph pattern - 20 layers
-      const numLayers = 20;
-      const pointsPerLayer = 200;
+      // Main spirograph pattern - 15 layers
+      const numLayers = 15;
+      const pointsPerLayer = 100;
 
       for (let layer = 0; layer < numLayers; layer++) {
         if (layer > numLayers * easeOut) continue;
@@ -73,23 +93,29 @@ export default function Hero() {
           const rotatedAngle = angle + rotation * (1 + layer * 0.08);
 
           // Complex mathematical curves
-          const wave1 = Math.sin(angle * 8 + rotation * 3 + layer * 0.5) * 15;
+          const wave1 =
+            Math.sin(angle * 8 + rotation * 3 + layer * 0.5) * 15;
           const wave2 = Math.cos(angle * 6 - rotation * 2.5) * 10;
           const wave3 = Math.sin(angle * 4 + rotation * 4) * 6;
           const spiral = layer * 5;
 
           // Mouse distortion
           const angleToMouse = rotatedAngle - mouseAngle;
-          const mousePull = Math.cos(angleToMouse) * mouseDist * 35 * easeOut;
+          const mousePull =
+            Math.cos(angleToMouse) * mouseDist * 35 * easeOut;
 
-          const radius = (baseRadius + spiral + wave1 + wave2 + wave3 + mousePull) * easeOut;
+          const radius =
+            (baseRadius + spiral + wave1 + wave2 + wave3 + mousePull) *
+            easeOut;
 
           // Position waves
           const posWaveX = Math.sin(angle * 5 + rotation * 2.5) * 4;
           const posWaveY = Math.cos(angle * 7 - rotation * 3) * 4;
 
-          const x = centerX + Math.cos(rotatedAngle) * radius + posWaveX * easeOut;
-          const y = centerY + Math.sin(rotatedAngle) * radius + posWaveY * easeOut;
+          const x =
+            centerX + Math.cos(rotatedAngle) * radius + posWaveX * easeOut;
+          const y =
+            centerY + Math.sin(rotatedAngle) * radius + posWaveY * easeOut;
 
           if (i === 0) {
             ctx.moveTo(x, y);
@@ -111,19 +137,28 @@ export default function Hero() {
 
         const numConnections = 50;
         for (let i = 0; i < numConnections; i++) {
-          const angle1 = (i / numConnections) * Math.PI * 2 + rotation * 1.8;
-          const angle2 = ((i + numConnections * 0.618) / numConnections) * Math.PI * 2 + rotation * 1.8;
+          const angle1 =
+            (i / numConnections) * Math.PI * 2 + rotation * 1.8;
+          const angle2 =
+            ((i + numConnections * 0.618) / numConnections) * Math.PI * 2 +
+            rotation * 1.8;
 
-          const r1 = baseRadius * 0.4 + Math.sin(rotation * 5 + i * 0.15) * 25;
-          const r2 = baseRadius * 1.4 + Math.cos(rotation * 4 + i * 0.15) * 30;
+          const r1 =
+            baseRadius * 0.4 + Math.sin(rotation * 5 + i * 0.15) * 25;
+          const r2 =
+            baseRadius * 1.4 + Math.cos(rotation * 4 + i * 0.15) * 30;
 
           const pull1 = Math.cos(angle1 - mouseAngle) * mouseDist * 25;
           const pull2 = Math.cos(angle2 - mouseAngle) * mouseDist * 25;
 
-          const x1 = centerX + Math.cos(angle1) * (r1 + pull1) * easeOut;
-          const y1 = centerY + Math.sin(angle1) * (r1 + pull1) * easeOut;
-          const x2 = centerX + Math.cos(angle2) * (r2 + pull2) * easeOut;
-          const y2 = centerY + Math.sin(angle2) * (r2 + pull2) * easeOut;
+          const x1 =
+            centerX + Math.cos(angle1) * (r1 + pull1) * easeOut;
+          const y1 =
+            centerY + Math.sin(angle1) * (r1 + pull1) * easeOut;
+          const x2 =
+            centerX + Math.cos(angle2) * (r2 + pull2) * easeOut;
+          const y2 =
+            centerY + Math.sin(angle2) * (r2 + pull2) * easeOut;
 
           ctx.beginPath();
           ctx.moveTo(x1, y1);
@@ -140,8 +175,8 @@ export default function Hero() {
     draw();
 
     return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -155,21 +190,28 @@ export default function Hero() {
 
       {/* Main Content */}
       <div className="absolute inset-0 flex items-center justify-between px-12 z-10">
-
         {/* Left Content */}
         <div className="flex-1 flex flex-col justify-center items-start pl-12">
           <div className="flex items-center gap-3 mb-8">
             <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-            <p className="text-white/60 text-xs tracking-widest">SYSTEM ONLINE / OPEN TO WORK</p>
+            <p className="text-white/60 text-xs tracking-widest">
+              SYSTEM ONLINE / OPEN TO WORK
+            </p>
           </div>
 
-          <h1 className="text-5xl font-light text-white mb-4" style={{ letterSpacing: '-0.02em' }}>
+          <h1
+            className="text-5xl font-light text-white mb-4"
+            style={{ letterSpacing: "-0.02em" }}
+          >
             FULL <span className="italic font-light">STACK</span>
           </h1>
-          <h1 className="text-5xl font-light text-white/10 mb-12" style={{
-            letterSpacing: '-0.02em',
-            WebkitTextStroke: '1px rgba(255,255,255,0.2)'
-          }}>
+          <h1
+            className="text-5xl font-light text-white/10 mb-12"
+            style={{
+              letterSpacing: "-0.02em",
+              WebkitTextStroke: "1px rgba(255,255,255,0.2)",
+            }}
+          >
             DEVELOPER
           </h1>
 
@@ -182,18 +224,43 @@ export default function Hero() {
             </button>
           </div>
 
-          <p className="text-white/40 text-xs tracking-wider mt-8">/// DOWNLOAD RESUME</p>
+          <p className="text-white/40 text-xs tracking-wider mt-8">
+            /// DOWNLOAD RESUME
+          </p>
         </div>
 
-        {/* Center Image */}
-        <div className="flex-shrink-0 relative">
-          <div className="relative w-[300px] h-[450px] lg:w-[500px] lg:h-[500px] group">
-            {/* Your image */}
-            <div className="absolute bg-transparent flex items-center justify-center overflow-hidden">
+        {/* Center Image with 3D Rotation */}
+        <div
+          className="flex-shrink-0 relative"
+          ref={imageContainerRef}
+          onMouseLeave={() => {
+            setRotX(0);
+            setRotY(0);
+          }}
+        >
+          <div
+            className="relative w-[300px] h-[450px] lg:w-[500px] lg:h-[500px] group"
+            style={{
+              perspective: "1000px",
+            }}
+          >
+            {/* Your image with 3D rotation */}
+            <div
+              style={{
+                transform: `rotateX(${rotX}deg) rotateY(${rotY}deg)`,
+                transition: "transform 0.1s ease-out",
+                transformStyle: "preserve-3d",
+                width: "100%",
+                height: "100%",
+              }}
+            >
               <img
                 src="/images/my_image.png"
                 alt="Your Image"
-                className="w-full h-full object-contain border-0"
+                className="w-full h-full object-contain rounded-lg shadow-2xl"
+                style={{
+                  boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
+                }}
               />
             </div>
           </div>
@@ -209,8 +276,10 @@ export default function Hero() {
         {/* Right Content */}
         <div className="flex-1 flex flex-col justify-center items-end pr-12 text-right">
           <p className="text-white/60 text-sm leading-relaxed max-w-md mb-8">
-            Building seamless digital experiences where solid<br />
-            full-stack engineering meets thoughtful UI/UX<br />
+            Building seamless digital experiences where solid
+            <br />
+            full-stack engineering meets thoughtful UI/UX
+            <br />
             design. Based in morocco.
           </p>
 
