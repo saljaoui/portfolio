@@ -201,7 +201,6 @@ export default function Hero() {
               OPEN TO WORK
             </p>
           </div>
-
           <h1
             className="text-6xl font-semibold text-white mb-4"
             style={{ letterSpacing: "-0.02em" }}
