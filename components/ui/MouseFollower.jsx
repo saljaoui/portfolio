@@ -105,7 +105,7 @@ export default function SmoothMouseFollower() {
       <div
         ref={dotRef}
         className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-[width,height] duration-200 ${
-          isHovering ? 'w-8 h-8' : 'w-2 h-2'
+          isHovering ? 'w-10 h-10' : 'w-2 h-2'
         }`}
         style={{
           mixBlendMode: 'difference',
