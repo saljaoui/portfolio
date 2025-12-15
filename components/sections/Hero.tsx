@@ -196,9 +196,9 @@ export default function Hero() {
         {/* Left Content */}
         <div className="flex-1 flex flex-col justify-center items-start pl-12">
           <div className="flex items-center gap-3 mb-8">
-            <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
             <p className="text-white/60 text-xs tracking-widest">
-              SYSTEM ONLINE / OPEN TO WORK
+              OPEN TO WORK
             </p>
           </div>
 
@@ -206,7 +206,7 @@ export default function Hero() {
             className="text-6xl font-semibold text-white mb-4"
             style={{ letterSpacing: "-0.02em" }}
           >
-            FULL <span className="font-semibold">STACK</span>
+            FULL <span className="font-sans font-semibold">STACK</span>
           </h1>
           <h1
             className="text-6xl font-medium text-white/10 mb-10"
