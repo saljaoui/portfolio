@@ -204,7 +204,7 @@ export default function Hero() {
           </div>
 
           <h1
-            className="text-5xl font-semibold text-white mb-4"
+            className="text-6xl font-semibold text-white mb-4"
             style={{ letterSpacing: "-0.02em" }}
           >
             FULL <span className="italic font-semibold">STACK</span>
@@ -266,11 +266,7 @@ export default function Hero() {
           </div>
 
           {/* Large Background Text */}
-          <div className="absolute -right-32 top-1/2 -translate-y-1/2 pointer-events-none">
-            <span className="text-[20rem] font-bold text-white/5 leading-none">
-              CODES
-            </span>
-          </div>
+
         </div>
 
         {/* Right Content */}
@@ -292,6 +288,11 @@ export default function Hero() {
           </p>
         </div>
       </div>
+                <div className="absolute w-full flex justify-center right-0 left-0 top-1/2 -translate-y-1/2 pointer-events-none">
+            <span className="text-[17rem] font-bold text-white/5 leading-none">
+              SOUFIANE
+            </span>
+          </div>
     </div>
   );
 }
