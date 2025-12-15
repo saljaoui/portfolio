@@ -185,7 +185,7 @@ export default function Hero() {
         />
         {/* Secondary glow */}
         <div
-          className="absolute top-0 left-0 w-1/3 h-1/3"
+          className="absolute top-0 left-0 w-1/3 h-1/2"
           style={{
             background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%)',
           }}
@@ -243,7 +243,7 @@ export default function Hero() {
           ref={imageContainerRef}
         >
           <div
-            className="relative w-[300px] h-[450px] lg:w-[500px] lg:h-[500px] group"
+            className="relative w-[300px] h-[450px] lg:w-[500px] lg:h-[550px] group"
             style={{
               perspective: "1000px",
             }}
@@ -256,7 +256,7 @@ export default function Hero() {
             >
               <img
                 src="/images/my_image.png"
-                alt="Your Image"
+                alt="Soufian ALJAOUI"
                 className="w-full h-full object-contain rounded-lg shadow-2xl scale-x-[-1]"
                 style={{
                   boxShadow: "0 20px 60px rgba(0,0,0,0.3)",

@@ -98,7 +98,10 @@ export default function Navigation() {
                 className="block px-4 py-3 rounded-lg transition-all duration-300 font-medium hover:bg-gray-100/50"
                 style={{ 
                   color: '#000',
-                  mixBlendMode: 'normal'
+                  mixBlendMode: 'normal',
+                          
+          mixBlendMode: 'difference'
+        
                 }}
               >
                 {link.name}

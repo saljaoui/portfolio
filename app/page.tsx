@@ -161,7 +161,7 @@ export default function Home() {
 
       </main>
       {/* Section Indicators */}
-      <div className="fixed bottom-8 right-1/2 -translate-y-1/2 z-50 flex gap-4">
+      <div className="fixed bottom-7 right-1/2 translate-x-1/2 z-50 flex gap-3">
         {[...Array(totalSections)].map((_, i) => (
           <button
             key={i}
@@ -174,12 +174,14 @@ export default function Home() {
                 }, 2000);
               }
             }}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${i === currentSection
-              ? "bg-white scale-150"
-              : "bg-gray-500 hover:bg-gray-300"
+            className={`px-3 py-1 border border-white transition-all duration-300 hover:bg-white/10 ${i === currentSection
+                ? "bg-white text-black font-medium"
+                : "bg-transparent text-white"
               }`}
             aria-label={`Go to section ${i + 1}`}
-          />
+          >
+            {i + 1}
+          </button>
         ))}
       </div>
     </div>
