@@ -232,7 +232,7 @@ export default function Hero() {
                 </g>
               </svg>
             </button>
-            <button className="px-3 py-3 border border-white/30 text-white/60 text-sm tracking-wider hover:bg-white hover:text-black transition-all flex gap-2">
+            <button className="px-3 py-3 border border-white/40 text-white/60 text-sm transition-all hover:bg-white/10 hover:border-white hover:text-white flex">
               FRANÇAIS
             </button>
           </div>

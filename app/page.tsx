@@ -161,7 +161,7 @@ export default function Home() {
 
       </main>
       {/* Section Indicators */}
-      <div className="fixed bottom-7 right-1/2 translate-x-1/2 z-50 flex gap-3">
+      <div className="fixed bottom-7 right-1/2 translate-x-1/2 z-50 flex gap-3 mix-blend-difference">
         {[...Array(totalSections)].map((_, i) => (
           <button
             key={i}
