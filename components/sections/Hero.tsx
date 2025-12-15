@@ -3,14 +3,16 @@
 import { useRef, useEffect, useState } from "react";
 
 export default function Hero() {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let animationFrameId;
+    if (!ctx) return;
+
+    let animationFrameId: number;
     let rotation = 0;
     let time = 0;
 
@@ -21,7 +23,7 @@ export default function Hero() {
     resize();
     window.addEventListener('resize', resize);
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseRef.current.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
@@ -185,20 +187,14 @@ export default function Hero() {
 
         {/* Center Image */}
         <div className="flex-shrink-0 relative">
-          <div className="relative w-96 h-96">
-            {/* Wireframe Ring */}
-            <div className="absolute inset-0 rounded-full border border-white/10"
-              style={{
-                background: 'conic-gradient(from 0deg, transparent, rgba(255,255,255,0.05), transparent)',
-                animation: 'spin 20s linear infinite'
-              }}
-            ></div>
-
-            {/* Placeholder for your image */}
-            <div className="absolute inset-8 rounded-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center overflow-hidden">
-              <div className="w-full h-full bg-gray-700 flex items-center justify-center text-white/30">
-                YOUR IMAGE
-              </div>
+          <div className="relative w-[300px] h-[450px] lg:w-[500px] lg:h-[500px] group">
+            {/* Your image */}
+            <div className="absolute bg-transparent flex items-center justify-center overflow-hidden">
+              <img
+                src="/images/my_image.png"
+                alt="Your Image"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
 
