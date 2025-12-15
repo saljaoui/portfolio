@@ -193,7 +193,7 @@ export default function Hero() {
               <img
                 src="/images/my_image.png"
                 alt="Your Image"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain border-0"
               />
             </div>
           </div>
