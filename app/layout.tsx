@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-gray-50">
         <MouseFollower />
-        <Navigation />
+        {/* <Navigation /> */}
           {children}
       </body>
     </html>
