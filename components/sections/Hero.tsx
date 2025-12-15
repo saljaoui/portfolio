@@ -276,9 +276,9 @@ export default function Hero() {
           <button className="px-8 py-4 border border-white/30 text-white text-sm tracking-widest hover:bg-white hover:text-black transition-all mb-16 flex items-center gap-4">
             MORE ABOUT ME
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-              <g fill="none" stroke="currentColor" stroke-width="1.5">
+              <g fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M16.66 9.353c1.787 1.154 1.787 4.14 0 5.294L5.87 21.614C4.135 22.736 2 21.276 2 18.968V5.033c0-2.31 2.134-3.769 3.87-2.648l10.79 6.968Z" />
-                <path stroke-linecap="round" d="M22 5v14" />
+                <path strokeLinecap="round" d="M22 5v14" />
               </g>
             </svg>
           </button>
@@ -318,9 +318,9 @@ export default function Hero() {
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                <g fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M16.66 9.353c1.787 1.154 1.787 4.14 0 5.294L5.87 21.614C4.135 22.736 2 21.276 2 18.968V5.033c0-2.31 2.134-3.769 3.87-2.648l10.79 6.968Z" />
-                  <path stroke-linecap="round" d="M22 5v14" />
+                  <path strokeLinecap="round" d="M22 5v14" />
                 </g>
               </svg>
             </div>
