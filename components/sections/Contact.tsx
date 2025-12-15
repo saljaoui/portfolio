@@ -94,74 +94,76 @@ export default function Contact() {
         </div>
 
         {/* Right Side - Form */}
-        <div className="flex-1">
-          <div className="space-y-6">
-            {/* Name and Email Row */}
-            <div className="grid grid-cols-2 gap-4">
+<div className="flex-1">
+          <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-gray-200/50">
+            <div className="space-y-5">
+              {/* Name and Email Row */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2">Name</label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    placeholder="Your name"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2">Email</label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    placeholder="your@email.com"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all text-sm"
+                  />
+                </div>
+              </div>
+
+              {/* Subject */}
               <div>
-                <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">YOUR NAME</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => handleChange('name', e.target.value)}
-                  placeholder="Full Name"
-                  className="w-full px-4 py-3 bg-gray-50 border-b-2 border-gray-200 focus:border-black focus:outline-none transition-colors text-sm"
-                />
+                <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-3">Subject</label>
+                <div className="flex flex-wrap gap-2">
+                  {['Web Design', 'Development', 'Freelance', 'Other'].map((option) => (
+                    <button
+                      key={option}
+                      onClick={() => handleChange('subject', option)}
+                      className={`px-5 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                        formData.subject === option
+                          ? 'bg-black text-white shadow-lg scale-105'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {/* Message */}
               <div>
-                <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">YOUR EMAIL</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleChange('email', e.target.value)}
-                  placeholder="your.email@example.com"
-                  className="w-full px-4 py-3 bg-gray-50 border-b-2 border-gray-200 focus:border-black focus:outline-none transition-colors text-sm"
-                />
+                <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2">Message</label>
+                <textarea
+                  value={formData.message}
+                  onChange={(e) => handleChange('message', e.target.value)}
+                  placeholder="Tell me about your project..."
+                  rows={5}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all resize-none text-sm"
+                ></textarea>
               </div>
-            </div>
 
-            {/* Subject */}
-            <div>
-              <label className="block text-xs text-gray-500 uppercase tracking-wider mb-3">SUBJECT</label>
-              <div className="flex gap-3">
-                {['Web Design', 'Development', 'Freelance', 'Other'].map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => handleChange('subject', option)}
-                    className={`px-4 py-2 rounded-full text-sm transition-all ${
-                      formData.subject === option
-                        ? 'bg-black text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
+              {/* Submit Button */}
+              <button
+                onClick={handleSubmit}
+                className="w-full bg-gradient-to-r from-gray-900 to-black text-white py-4 font-semibold uppercase tracking-wider rounded-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 group hover:scale-[1.02]"
+              >
+                Send Message
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
             </div>
-
-            {/* Message */}
-            <div>
-              <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">MESSAGE</label>
-              <textarea
-                value={formData.message}
-                onChange={(e) => handleChange('message', e.target.value)}
-                placeholder="Tell me about your project..."
-                rows={6}
-                className="w-full px-4 py-3 bg-gray-50 border-b-2 border-gray-200 focus:border-black focus:outline-none transition-colors resize-none text-sm"
-              ></textarea>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              onClick={handleSubmit}
-              className="w-full bg-black text-white py-4 font-medium uppercase tracking-wider hover:bg-gray-900 transition-colors flex items-center justify-center gap-2 group"
-            >
-              SEND MESSAGE
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
