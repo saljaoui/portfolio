@@ -5,7 +5,6 @@ import { useRef, useEffect, useState } from "react";
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
-  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -210,10 +209,10 @@ export default function Hero() {
             FULL <span className="italic font-semibold">STACK</span>
           </h1>
           <h1
-            className="text-5xl font-light text-white/10 mb-12"
+            className="text-6xl font-medium text-white/10 mb-10"
             style={{
               letterSpacing: "-0.02em",
-              WebkitTextStroke: "1px rgba(255,255,255,0.2)",
+              WebkitTextStroke: "1px rgba(255,255,255,0.4)",
             }}
           >
             DEVELOPER
@@ -240,14 +239,13 @@ export default function Hero() {
 
         <div
           className="flex-shrink-0 relative"
-          ref={imageContainerRef}
         >
           <div
             className="relative w-[300px] h-[450px] lg:w-[500px] lg:h-[550px] group"
             style={{
               perspective: "1000px",
-            }}
-          >
+            }}>
+
             <div
               style={{
                 width: "100%",
@@ -264,9 +262,6 @@ export default function Hero() {
               />
             </div>
           </div>
-
-          {/* Large Background Text */}
-
         </div>
 
         {/* Right Content */}
@@ -279,20 +274,98 @@ export default function Hero() {
             design. Based in morocco.
           </p>
 
-          <button className="px-8 py-4 border border-white/30 text-white text-sm tracking-widest hover:bg-white hover:text-black transition-all mb-16">
-            MORE ABOUT ME →
+          <button className="px-8 py-4 border border-white/30 text-white text-sm tracking-widest hover:bg-white hover:text-black transition-all mb-16 flex items-center gap-4">
+            MORE ABOUT ME
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16.66 9.353c1.787 1.154 1.787 4.14 0 5.294L5.87 21.614C4.135 22.736 2 21.276 2 18.968V5.033c0-2.31 2.134-3.769 3.87-2.648l10.79 6.968Z" />
+                  <path stroke-linecap="round" d="M22 5v14" />
+                </g>
+              </svg>
           </button>
-
-          <p className="text-white/40 text-xs tracking-widest mt-auto">
-            SCROLL HORIZONTAL →
-          </p>
         </div>
       </div>
-                <div className="absolute w-full flex justify-center right-0 left-0 top-1/2 -translate-y-1/2 pointer-events-none">
-            <span className="text-[17rem] font-bold text-white/5 leading-none">
-              SOUFIANE
-            </span>
+      <div className="absolute w-full flex justify-center right-0 left-0 top-1/2 -translate-y-1/2 pointer-events-none">
+        <span className="text-[17rem] font-bold text-white/5 leading-none">
+          SOUFIANE
+        </span>
+      </div>
+      <div className="absolute bottom-20 left-24 right-24 z-20 flex flex-col items-center">
+        {/* Single continuous line with flow effect */}
+        <div className="flex items-center w-full" >
+          <div className="flex-1 h-px bg-gradient-to-r from-white/20 via-white/40 to-white/30 relative overflow-hidden">
+            {/* Flowing shimmer effect */}
+            <div
+              className="absolute inset-0 h-full w-32 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+              style={{
+                animation: 'flowRight 2.5s ease-in-out infinite',
+              }}
+            />
           </div>
+
+          {/* Arrow with glow effect */}
+          <div className="relative px-4">
+            <div
+              className="absolute inset-0 bg-white/20 blur-xl rounded-full"
+              style={{
+                animation: 'glow 2s ease-in-out infinite',
+              }}
+            />
+            <div
+              className="relative text-white/70 text-base"
+              style={{
+                textShadow: '0 0 20px rgba(255,255,255,0.6)',
+                animation: 'arrowPulse 2.5s ease-in-out infinite',
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                <g fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M16.66 9.353c1.787 1.154 1.787 4.14 0 5.294L5.87 21.614C4.135 22.736 2 21.276 2 18.968V5.033c0-2.31 2.134-3.769 3.87-2.648l10.79 6.968Z" />
+                  <path stroke-linecap="round" d="M22 5v14" />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="mt-0.5 flex justify-between items-center w-full">
+          <p className="text-white/40 text-xs tracking-widest mt-auto" >
+            © 2025 SOUFIANE ALJAOUI. All Rights Reserved.
+          </p>
+
+          <p className="text-white/60 text-xs tracking-widest mt-auto">
+            SCROLL HORIZONTAL
+          </p>
+        </div>
+
+      </div>
+      <style jsx>{`
+        @keyframes flowRight {
+          0% {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          50% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(800%);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes glow {
+          0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.6;
+            transform: scale(1.3);
+          }
+        }
+      `}</style>
     </div>
   );
 }
