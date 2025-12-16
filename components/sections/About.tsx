@@ -29,11 +29,11 @@ export default function About() {
           <div className="flex flex-row items-start gap-6">
             {/* Profile Picture - Left */}
             <div className="flex-shrink-0">
-              <div className="w-32 h-32 rounded-xl shadow-xl flex items-center justify-center transition-transform hover:scale-105 duration-300 overflow-hidden border-1 border-gray-600">
+              <div className="w-32 h-32 shadow-xl flex items-center justify-center transition-transform hover:scale-105 duration-300 overflow-hidden border-1 border-gray-600">
                 <img
                   src="../images/about_image.jpg"
                   alt="Profile Picture"
-                  className="w-full h-full rounded-lg object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
