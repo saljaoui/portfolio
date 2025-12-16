@@ -94,7 +94,7 @@ export default function Contact() {
         </div>
 
         {/* Right Side - Form */}
-        <div className="flex-1">
+        <div className="flex-1 border-gray-300">
           <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-gray-300">
             <div className="space-y-5">
               {/* Name and Email Row */}

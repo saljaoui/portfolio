@@ -1,6 +1,11 @@
 export default function About() {
   return (
     <section className="w-screen h-screen flex-shrink-0 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-24 overflow-hidden">
+
+ <div className="absolute -top-16 mx-auto w-32 h-32 rounded-full border-2 border-gray-200" />
+          <div className="absolute -top-12 mx-auto w-24 h-24 rounded-full border-2 border-gray-300" />
+          <div className="absolute -top-8 mx-auto w-16 h-16 rounded-full border-2 border-gray-400" />
+
       <div className="max-w-7xl w-full">
         {/* Header */}
         <div className="mb-8">
