@@ -59,8 +59,8 @@ export default function Contact() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">EMAIL</p>
-                <p className="font-medium">bensaltanahoussam7@email.com</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">GMAIL</p>
+                <p className="font-medium">soufian2022ff@gmail.com</p>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ export default function Contact() {
               </svg>
               <div>
                 <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">PHONE</p>
-                <p className="font-medium">+212 614038394</p>
+                <p className="font-medium">+212 71081736</p>
               </div>
             </div>
 
@@ -81,7 +81,7 @@ export default function Contact() {
               </svg>
               <div>
                 <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">LOCATION</p>
-                <p className="font-medium">Safi, Morocco</p>
+                <p className="font-medium">Oujda, Morocco</p>
               </div>
             </div>
           </div>
@@ -94,8 +94,8 @@ export default function Contact() {
         </div>
 
         {/* Right Side - Form */}
-<div className="flex-1">
-          <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-gray-200/50">
+        <div className="flex-1">
+          <div className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-gray-300">
             <div className="space-y-5">
               {/* Name and Email Row */}
               <div className="grid grid-cols-2 gap-4">
@@ -106,7 +106,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
                     placeholder="Your name"
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all text-sm"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all text-sm"
                   />
                 </div>
                 <div>
@@ -116,7 +116,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all text-sm"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all text-sm"
                   />
                 </div>
               </div>
@@ -129,11 +129,10 @@ export default function Contact() {
                     <button
                       key={option}
                       onClick={() => handleChange('subject', option)}
-                      className={`px-5 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-                        formData.subject === option
+                      className={`px-5 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${formData.subject === option
                           ? 'bg-black text-white shadow-lg scale-105'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
+                        }`}
                     >
                       {option}
                     </button>
@@ -149,14 +148,14 @@ export default function Contact() {
                   onChange={(e) => handleChange('message', e.target.value)}
                   placeholder="Tell me about your project..."
                   rows={5}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all resize-none text-sm"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:border-black focus:ring-2 focus:ring-black/10 focus:outline-none transition-all resize-none text-sm"
                 ></textarea>
               </div>
 
               {/* Submit Button */}
               <button
                 onClick={handleSubmit}
-                className="w-full bg-gradient-to-r from-gray-900 to-black text-white py-4 font-semibold uppercase tracking-wider rounded-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 group hover:scale-[1.02]"
+                className="w-full bg-black text-white py-4 font-semibold uppercase tracking-wider hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 group hover:scale-[1.02]"
               >
                 Send Message
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
