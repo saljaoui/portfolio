@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export default function Hero() {
     window.addEventListener("resize", resize);
 
     const handleMouseMove = (e: MouseEvent) => {
-      // Canvas mouse tracking
       mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseRef.current.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
@@ -35,10 +34,8 @@ export default function Hero() {
       time += 0.016;
 
       // Smooth mouse interpolation
-      mouseRef.current.x +=
-        (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
-      mouseRef.current.y +=
-        (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
 
       const mouse = mouseRef.current;
       const introEase = Math.min(time / 2, 1);
@@ -52,11 +49,10 @@ export default function Hero() {
       const centerY = canvas.height / 2;
       const baseRadius = Math.min(canvas.width, canvas.height) * 0.3;
 
-      // Mouse influence
       const mouseDist = Math.sqrt(mouse.x ** 2 + mouse.y ** 2);
       const mouseAngle = Math.atan2(mouse.y, mouse.x);
 
-      // Main spirograph pattern - 15 layers
+      // Main spirograph pattern - 15 clean layers
       const numLayers = 15;
       const pointsPerLayer = 100;
 
@@ -77,29 +73,23 @@ export default function Hero() {
           const rotatedAngle = angle + rotation * (1 + layer * 0.08);
 
           // Complex mathematical curves
-          const wave1 =
-            Math.sin(angle * 8 + rotation * 3 + layer * 0.5) * 15;
+          const wave1 = Math.sin(angle * 8 + rotation * 3 + layer * 0.5) * 15;
           const wave2 = Math.cos(angle * 6 - rotation * 2.5) * 10;
           const wave3 = Math.sin(angle * 4 + rotation * 4) * 6;
           const spiral = layer * 5;
 
           // Mouse distortion
           const angleToMouse = rotatedAngle - mouseAngle;
-          const mousePull =
-            Math.cos(angleToMouse) * mouseDist * 35 * easeOut;
+          const mousePull = Math.cos(angleToMouse) * mouseDist * 35 * easeOut;
 
-          const radius =
-            (baseRadius + spiral + wave1 + wave2 + wave3 + mousePull) *
-            easeOut;
+          const radius = (baseRadius + spiral + wave1 + wave2 + wave3 + mousePull) * easeOut;
 
           // Position waves
           const posWaveX = Math.sin(angle * 5 + rotation * 2.5) * 4;
           const posWaveY = Math.cos(angle * 7 - rotation * 3) * 4;
 
-          const x =
-            centerX + Math.cos(rotatedAngle) * radius + posWaveX * easeOut;
-          const y =
-            centerY + Math.sin(rotatedAngle) * radius + posWaveY * easeOut;
+          const x = centerX + Math.cos(rotatedAngle) * radius + posWaveX * easeOut;
+          const y = centerY + Math.sin(rotatedAngle) * radius + posWaveY * easeOut;
 
           if (i === 0) {
             ctx.moveTo(x, y);
@@ -121,28 +111,19 @@ export default function Hero() {
 
         const numConnections = 50;
         for (let i = 0; i < numConnections; i++) {
-          const angle1 =
-            (i / numConnections) * Math.PI * 2 + rotation * 1.8;
-          const angle2 =
-            ((i + numConnections * 0.618) / numConnections) * Math.PI * 2 +
-            rotation * 1.8;
+          const angle1 = (i / numConnections) * Math.PI * 2 + rotation * 1.8;
+          const angle2 = ((i + numConnections * 0.618) / numConnections) * Math.PI * 2 + rotation * 1.8;
 
-          const r1 =
-            baseRadius * 0.4 + Math.sin(rotation * 5 + i * 0.15) * 25;
-          const r2 =
-            baseRadius * 1.4 + Math.cos(rotation * 4 + i * 0.15) * 30;
+          const r1 = baseRadius * 0.4 + Math.sin(rotation * 5 + i * 0.15) * 25;
+          const r2 = baseRadius * 1.4 + Math.cos(rotation * 4 + i * 0.15) * 30;
 
           const pull1 = Math.cos(angle1 - mouseAngle) * mouseDist * 25;
           const pull2 = Math.cos(angle2 - mouseAngle) * mouseDist * 25;
 
-          const x1 =
-            centerX + Math.cos(angle1) * (r1 + pull1) * easeOut;
-          const y1 =
-            centerY + Math.sin(angle1) * (r1 + pull1) * easeOut;
-          const x2 =
-            centerX + Math.cos(angle2) * (r2 + pull2) * easeOut;
-          const y2 =
-            centerY + Math.sin(angle2) * (r2 + pull2) * easeOut;
+          const x1 = centerX + Math.cos(angle1) * (r1 + pull1) * easeOut;
+          const y1 = centerY + Math.sin(angle1) * (r1 + pull1) * easeOut;
+          const x2 = centerX + Math.cos(angle2) * (r2 + pull2) * easeOut;
+          const y2 = centerY + Math.sin(angle2) * (r2 + pull2) * easeOut;
 
           ctx.beginPath();
           ctx.moveTo(x1, y1);
@@ -150,6 +131,46 @@ export default function Hero() {
           ctx.stroke();
         }
       }
+
+      // SPECIAL: Floating particles with depth - clean and smooth
+      const numParticles = 25;
+      for (let i = 0; i < numParticles; i++) {
+        const particleAngle = (i / numParticles) * Math.PI * 2 + time * 0.5;
+        const depth = (i % 3) / 3; // 3 depth layers
+        const orbitRadius = baseRadius * (1.1 + depth * 0.4 + Math.sin(time + i) * 0.15);
+        
+        const px = centerX + Math.cos(particleAngle) * orbitRadius * easeOut;
+        const py = centerY + Math.sin(particleAngle) * orbitRadius * easeOut;
+        
+        const size = 2 + depth * 1.5;
+        const pulse = Math.sin(time * 2 + i * 0.5) * 0.3;
+        const opacity = (0.4 + pulse + depth * 0.2) * easeOut;
+        
+        // Particle glow
+        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+        ctx.shadowBlur = 8 + depth * 6;
+        ctx.shadowColor = `rgba(255, 255, 255, ${opacity * 0.8})`;
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // SPECIAL: Breathing center core - subtle wow effect
+      const breathe = Math.sin(time * 1.5) * 0.15 + 1;
+      const coreGradient = ctx.createRadialGradient(
+        centerX, centerY, 0,
+        centerX, centerY, baseRadius * 0.25 * breathe
+      );
+      coreGradient.addColorStop(0, `rgba(255, 255, 255, ${0.2 * easeOut})`);
+      coreGradient.addColorStop(0.6, `rgba(255, 255, 255, ${0.08 * easeOut})`);
+      coreGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      
+      ctx.shadowBlur = 30;
+      ctx.shadowColor = `rgba(255, 255, 255, ${0.2 * easeOut})`;
+      ctx.fillStyle = coreGradient;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, baseRadius * 0.25 * breathe * easeOut, 0, Math.PI * 2);
+      ctx.fill();
 
       ctx.shadowBlur = 0;
       rotation += 0.007;
