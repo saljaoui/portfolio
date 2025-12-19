@@ -78,14 +78,14 @@ export default function Projects() {
         // Trigger animation
         setIsAnimating(true);
         
-        // Scroll after a brief delay to sync with animation
+        // Change project content at the peak of animation (when screen is covered)
         setTimeout(() => {
           container.scrollTo({
             top: newIndex * container.clientHeight,
-            behavior: 'smooth'
+            behavior: 'auto' // Changed to 'auto' for instant change
           });
           setCurrentIndex(newIndex);
-        }, 100);
+        }, 350); // Halfway through the 700ms animation
         
         // Remove animation overlay
         setTimeout(() => {
