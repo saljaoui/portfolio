@@ -11,10 +11,12 @@ const projects = [
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const isTransitioningRef = useRef(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState('down');
 
   useEffect(() => {
     const container = document.getElementById('projects-scroll-container');
-    let scrollTimeout: string | number | NodeJS.Timeout | undefined;
+    let scrollTimeout;
     
     const snapToSection = () => {
       if (!container) return;
@@ -39,7 +41,7 @@ export default function Projects() {
       }, 150);
     };
 
-    const handleWheel = (e: { preventDefault: () => void; stopPropagation: () => void; deltaY: number; }) => {
+    const handleWheel = (e) => {
       if (!container) return;
       
       // Block if currently transitioning
@@ -70,11 +72,25 @@ export default function Projects() {
       const newIndex = Math.max(0, Math.min(projects.length - 1, currentIndex + direction));
       
       if (newIndex !== currentIndex) {
-        container.scrollTo({
-          top: newIndex * container.clientHeight,
-          behavior: 'smooth'
-        });
-        setCurrentIndex(newIndex);
+        // Set scroll direction
+        setScrollDirection(direction > 0 ? 'down' : 'up');
+        
+        // Trigger animation
+        setIsAnimating(true);
+        
+        // Scroll after a brief delay to sync with animation
+        setTimeout(() => {
+          container.scrollTo({
+            top: newIndex * container.clientHeight,
+            behavior: 'smooth'
+          });
+          setCurrentIndex(newIndex);
+        }, 100);
+        
+        // Remove animation overlay
+        setTimeout(() => {
+          setIsAnimating(false);
+        }, 700);
       }
       
       // Allow next scroll after animation completes
@@ -97,6 +113,18 @@ export default function Projects() {
 
   return (
     <section className="w-screen h-screen flex-shrink-0 bg-black text-white relative overflow-hidden">
+      {/* Animation Overlay */}
+      {isAnimating && (
+        <div
+          className="absolute inset-0 z-50 bg-white pointer-events-none"
+          style={{
+            animation: scrollDirection === 'down' 
+              ? 'slideUpAndOut 0.7s ease-in-out forwards' 
+              : 'slideDownAndOut 0.7s ease-in-out forwards'
+          }}
+        />
+      )}
+      
       <div
         id="projects-scroll-container"
         className="relative z-10 h-full overflow-y-scroll snap-y snap-mandatory"
@@ -120,6 +148,30 @@ export default function Projects() {
       <style jsx>{`
         #projects-scroll-container::-webkit-scrollbar {
           display: none;
+        }
+        
+        @keyframes slideUpAndOut {
+          0% {
+            transform: translateY(100%);
+          }
+          50% {
+            transform: translateY(0%);
+          }
+          100% {
+            transform: translateY(-100%);
+          }
+        }
+        
+        @keyframes slideDownAndOut {
+          0% {
+            transform: translateY(-100%);
+          }
+          50% {
+            transform: translateY(0%);
+          }
+          100% {
+            transform: translateY(100%);
+          }
         }
       `}</style>
     </section>
