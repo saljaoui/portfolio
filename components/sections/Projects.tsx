@@ -16,7 +16,7 @@ export default function Projects() {
 
   useEffect(() => {
     const container = document.getElementById('projects-scroll-container');
-    let scrollTimeout;
+    let scrollTimeout: string | number | NodeJS.Timeout | undefined;
     
     const snapToSection = () => {
       if (!container) return;
@@ -41,7 +41,7 @@ export default function Projects() {
       }, 150);
     };
 
-    const handleWheel = (e) => {
+    const handleWheel = (e: { preventDefault: () => void; stopPropagation: () => void; deltaY: number; }) => {
       if (!container) return;
       
       // Block if currently transitioning
