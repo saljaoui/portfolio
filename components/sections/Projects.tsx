@@ -194,21 +194,27 @@ return (
           >
             <div className="max-w-7xl w-full grid md:grid-cols-2 gap-12 items-center">
               {/* Left Side - Content */}
-              <div className="text-left transform transition-all duration-700 space-y-6">
+              <div className="text-left h-full pt-4 transform transition-all duration-700 space-y-6">
                 {/* Project Number */}
-                <div className="transform transition-all duration-500 hover:scale-105 inline-block">
-                  <span className="text-6xl md:text-8xl font-bold text-white/90 tracking-tighter transition-all duration-300 hover:text-white">
-                    {project.number}
-                  </span>
-                </div>
-
-                {/* Project Title */}
-                <div>
-                  <h2 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight">
-                    <span className="text-white transition-all duration-300 hover:tracking-wide inline-block">{project.title}</span>
-                  </h2>
-                  <div className="h-1 w-20 bg-white rounded-full transition-all duration-500 group-hover:w-32"></div>
-                </div>
+                        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-5xl md:text-6xl font-bold mb-2">
+            <span className="text-white">PROJECT</span>{" "}
+            <span
+              className="text-white/10"
+              style={{
+                letterSpacing: "-0.02em",
+                WebkitTextStroke: "2px rgba(250, 250, 250, 0.6)",
+              }}
+            >
+              {project.number}
+            </span>
+          </h1>
+          <div className="h-px w-32 bg-white/80"></div>
+          <p className="text-gray-500 text-sm mt-3 max-w-xl">
+            Technologies I use to build modern, scalable applications
+          </p>
+        </div>
 
                 {/* Description */}
                 <p className="text-lg md:text-xl text-gray-400 leading-relaxed transition-all duration-300 hover:text-gray-300">
