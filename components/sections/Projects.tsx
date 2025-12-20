@@ -385,7 +385,7 @@ export default function Projects() {
       </div>
 
       {/* Navigation Indicators */}
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-[60] flex flex-col gap-3">
+      <div className="fixed top-1/2 pl-8 -translate-y-1/2 z-[60] flex flex-col gap-3">
         {projects.map((_, i) => (
           <button
             key={i}
@@ -430,14 +430,6 @@ export default function Projects() {
             )}
           </button>
         ))}
-      </div>
-
-      {/* Scroll Hint */}
-      <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[60] flex flex-col items-center gap-2 transition-opacity duration-500 ${currentIndex === projects.length - 1 ? 'opacity-0' : 'opacity-100'}`}>
-        <span className="text-white/50 text-xs uppercase tracking-widest">Scroll</span>
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full p-1">
-          <div className="w-1 h-2 bg-white/50 rounded-full mx-auto animate-[scrollDown_1.5s_ease-in-out_infinite]"></div>
-        </div>
       </div>
 
       <style jsx>{`
