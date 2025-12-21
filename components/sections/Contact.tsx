@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function Contact() {
+export default function Contact(active: { active: boolean }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,7 +12,7 @@ export default function Contact() {
   const handleSubmit = () => {
     setIsSubmitting(true);
     console.log('Form submitted:', formData);
-    
+
     // Simulate submission
     setTimeout(() => {
       setIsSubmitting(false);
@@ -112,20 +112,20 @@ export default function Contact() {
 
           {/* Social Links */}
           <div className="flex gap-3 pt-4 border-t border-gray-200 animate-[fadeIn_1.2s_ease-out]">
-            <a 
-              href="https://linkedin.com" 
+            <a
+              href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-2 px-5 py-2.5 bg-black text-white rounded-lg font-medium text-xs uppercase tracking-wider hover:bg-gray-800 transition-all duration-300 hover:scale-105 hover:shadow-lg relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               <svg className="w-4 h-4 relative z-10" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
               </svg>
               <span className="relative z-10">LinkedIn</span>
             </a>
-            <a 
-              href="https://github.com" 
+            <a
+              href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-black rounded-lg font-medium text-xs uppercase tracking-wider hover:bg-gray-200 transition-all duration-300 hover:scale-105 hover:shadow-lg border border-gray-300 relative overflow-hidden"
@@ -145,7 +145,7 @@ export default function Contact() {
             {/* Decorative corners */}
             <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-black/10 rounded-tl-xl"></div>
             <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-black/10 rounded-br-xl"></div>
-            
+
             <div className="space-y-5 relative z-10">
               {/* Name and Email Row */}
               <div className="grid grid-cols-2 gap-3">
@@ -159,7 +159,7 @@ export default function Contact() {
                       type="text"
                       value={formData.name}
                       onChange={(e) => handleChange('name', e.target.value)}
-            
+
                       placeholder="John Doe"
                       className="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-lg focus:border-black focus:bg-white focus:shadow-md focus:outline-none transition-all text-sm"
                     />
@@ -174,7 +174,7 @@ export default function Contact() {
                     <input
                       type="email"
                       value={formData.email}
-                      onChange={(e) => handleChange('email', e.target.value)}  
+                      onChange={(e) => handleChange('email', e.target.value)}
                       placeholder="john@example.com"
                       className="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-lg focus:border-black focus:bg-white focus:shadow-md focus:outline-none transition-all text-sm"
                     />
@@ -193,11 +193,10 @@ export default function Contact() {
                     <button
                       key={option}
                       onClick={() => handleChange('subject', option)}
-                      className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 relative overflow-hidden group/btn ${
-                        formData.subject === option
+                      className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 relative overflow-hidden group/btn ${formData.subject === option
                           ? 'bg-black text-white shadow-lg scale-105'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
-                      }`}
+                        }`}
                       style={{ animationDelay: `${i * 50}ms` }}
                     >
                       {formData.subject === option && (
@@ -234,7 +233,7 @@ export default function Contact() {
               >
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/submit:translate-x-full transition-transform duration-700"></div>
-                
+
                 {isSubmitting ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

@@ -137,10 +137,10 @@ export default function Home() {
         }}
       >
         <Hero />
-        <About />
+        <About active={currentSection === 1} />
         <Skills />
         <Projects />
-        <Contact />
+        <Contact active={currentSection === 1}/>
       </main>
     </div>
   );
