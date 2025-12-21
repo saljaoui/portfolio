@@ -221,9 +221,9 @@ export default function Hero(active: { active: boolean }) {
           }`}
       >
         <div className="flex flex-col items-center gap-8">
-          <h1 className="text-5xl font-bold text-white tracking-wider">
-            SOUFIANE
-          </h1>
+            <div className='h-10 w-10' >
+               <img src="/images/logo.png" alt="Logo" />
+            </div>
 
           <div className="w-64 h-0.5 bg-white/20 relative overflow-hidden">
             <div

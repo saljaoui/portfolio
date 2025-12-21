@@ -42,7 +42,10 @@ export default function Navigation({ currentSection, onNavigate }) {
               letterSpacing: '-0.02em'
             }}
           >
-            Portfolio
+            <div className='h-10 w-10' >
+               <img src="/images/logo.png" alt="Logo" />
+            </div>
+           
           </button>
 
           {/* Desktop Navigation with staggered fade-in */}
