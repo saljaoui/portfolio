@@ -50,10 +50,27 @@ const projects = [
 
 export default function Projects(active: { active: boolean }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [animate, setAnimate] = useState(false);
   const isTransitioningRef = useRef(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [scrollDirection, setScrollDirection] = useState('down');
   const [showContent, setShowContent] = useState(true);
+
+  // Initial animation when section becomes active
+  useEffect(() => {
+    if (active.active) {
+      setAnimate(false);
+      setShowContent(false);
+      const t = setTimeout(() => {
+        setAnimate(true);
+        setShowContent(true);
+      }, 50);
+      return () => clearTimeout(t);
+    } else {
+      setAnimate(false);
+      setShowContent(false);
+    }
+  }, [active.active]);
 
   useEffect(() => {
     const container = document.getElementById('projects-scroll-container');
@@ -85,7 +102,6 @@ export default function Projects(active: { active: boolean }) {
     const handleWheel = (e) => {
       if (!container) return;
 
-      // Block if currently transitioning
       if (isTransitioningRef.current) {
         e.preventDefault();
         e.stopPropagation();
@@ -106,23 +122,16 @@ export default function Projects(active: { active: boolean }) {
       e.preventDefault();
       e.stopPropagation();
 
-      // Start transition
       isTransitioningRef.current = true;
 
       const direction = e.deltaY > 0 ? 1 : -1;
       const newIndex = Math.max(0, Math.min(projects.length - 1, currentIndex + direction));
 
       if (newIndex !== currentIndex) {
-        // Set scroll direction
         setScrollDirection(direction > 0 ? 'down' : 'up');
-
-        // Hide content first
         setShowContent(false);
-
-        // Trigger animation
         setIsAnimating(true);
 
-        // Change project content at the peak of animation (when screen is covered)
         setTimeout(() => {
           container.scrollTo({
             top: newIndex * container.clientHeight,
@@ -131,14 +140,12 @@ export default function Projects(active: { active: boolean }) {
           setCurrentIndex(newIndex);
         }, 400);
 
-        // Remove animation overlay and show content with stagger
         setTimeout(() => {
           setIsAnimating(false);
           setShowContent(true);
         }, 800);
       }
 
-      // Allow next scroll after animation completes
       setTimeout(() => {
         isTransitioningRef.current = false;
       }, 900);
@@ -189,7 +196,10 @@ export default function Projects(active: { active: boolean }) {
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `particle-float ${5 + Math.random() * 10}s ease-in-out infinite`,
+              animationName: 'particle-float',
+              animationDuration: `${5 + Math.random() * 10}s`,
+              animationTimingFunction: 'ease-in-out',
+              animationIterationCount: 'infinite',
               animationDelay: `${Math.random() * 5}s`
             }}
           />
@@ -202,9 +212,10 @@ export default function Projects(active: { active: boolean }) {
           className="absolute inset-0 z-50 pointer-events-none"
           style={{
             background: '#ffffff',
-            animation: scrollDirection === 'down'
-              ? 'slideUpAndOut 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards'
-              : 'slideDownAndOut 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards'
+            animationName: scrollDirection === 'down' ? 'slideUpAndOut' : 'slideDownAndOut',
+            animationDuration: '0.8s',
+            animationTimingFunction: 'cubic-bezier(0.65, 0, 0.35, 1)',
+            animationFillMode: 'forwards'
           }}
         />
       )}
@@ -225,33 +236,35 @@ export default function Projects(active: { active: boolean }) {
           >
             <div className="max-w-7xl w-full grid md:grid-cols-2 gap-12 items-center">
               {/* Left Side - Content */}
-              <div className={`text-left h-full pt-4 space-y-6 transition-all duration-700 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <div className={`text-left h-full pt-4 space-y-6 transition-all duration-700 ${showContent && animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                 {/* Header */}
-                <div className="mb-8" style={{ animationDelay: '0ms' }}>
+                <div className="mb-8" style={{ transitionDelay: '0ms' }}>
                   <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-2">
-                    <span className="text-white inline-block animate-[slideInLeft_0.6s_ease-out_forwards]">PROJECT</span>{" "}
+                    <span className={`text-white inline-block transition-all duration-600 ${showContent && animate ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>PROJECT</span>{" "}
                     <span
-                      className="text-white/10 inline-block animate-[slideInRight_0.6s_ease-out_forwards]"
+                      className={`text-white/10 inline-block transition-all duration-600 ${showContent && animate ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}
                       style={{
                         letterSpacing: "-0.02em",
                         WebkitTextStroke: "2px rgba(250, 250, 250, 0.6)",
+                        transitionDelay: '100ms'
                       }}
                     >
                       {project.number}
                     </span>
                   </h1>
-                  <div className="h-px w-32 bg-white/80 animate-[expandWidth_0.8s_ease-out_forwards]"></div>
+                  <div className={`h-px bg-white/80 transition-all duration-800 ${showContent && animate ? 'w-32 opacity-100' : 'w-0 opacity-0'}`}
+                    style={{ transitionDelay: '200ms' }}></div>
                 </div>
 
                 {/* Title */}
-                <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight transition-all duration-500 ${showContent ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
-                  style={{ transitionDelay: '100ms' }}>
+                <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight transition-all duration-500 ${showContent && animate ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
+                  style={{ transitionDelay: '300ms' }}>
                   {project.title}
                 </h2>
 
                 {/* Description */}
-                <p className={`text-base md:text-lg text-gray-400 leading-relaxed mb-6 transition-all duration-500 ${showContent ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
-                  style={{ transitionDelay: '200ms' }}>
+                <p className={`text-base md:text-lg text-gray-400 leading-relaxed mb-6 transition-all duration-500 ${showContent && animate ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
+                  style={{ transitionDelay: '400ms' }}>
                   {project.description}
                 </p>
 
@@ -260,9 +273,9 @@ export default function Projects(active: { active: boolean }) {
                   {project.tags.map((tag, i) => (
                     <span
                       key={i}
-                      className={`px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-xs font-medium text-gray-300 hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-default hover:scale-110 hover:rotate-2 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+                      className={`px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-xs font-medium text-gray-300 hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-default hover:scale-110 hover:rotate-2 ${showContent && animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
                       style={{
-                        transitionDelay: `${300 + i * 100}ms`,
+                        transitionDelay: `${500 + i * 100}ms`,
                         backdropFilter: 'blur(10px)'
                       }}
                     >
@@ -272,8 +285,8 @@ export default function Projects(active: { active: boolean }) {
                 </div>
 
                 {/* Action Buttons */}
-                <div className={`flex flex-wrap gap-4 pt-4 transition-all duration-500 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                  style={{ transitionDelay: '500ms' }}>
+                <div className={`flex flex-wrap gap-4 pt-4 transition-all duration-500 ${showContent && animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: '800ms' }}>
                   {project.github && (
                     <a
                       href={project.github}
@@ -305,8 +318,8 @@ export default function Projects(active: { active: boolean }) {
                 </div>
 
                 {/* Project Stats */}
-                <div className={`flex gap-6 pt-6 border-t border-white/10 transition-all duration-500 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                  style={{ transitionDelay: '600ms' }}>
+                <div className={`flex gap-6 pt-6 border-t border-white/10 transition-all duration-500 ${showContent && animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                  style={{ transitionDelay: '900ms' }}>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-white mb-1">2024</div>
                     <div className="text-xs text-gray-500 uppercase tracking-wider">Year</div>
@@ -325,10 +338,9 @@ export default function Projects(active: { active: boolean }) {
               </div>
 
               {/* Right Side - Project Image */}
-              <div className={`relative h-[400px] md:h-[500px] group/image transition-all duration-700 ${showContent ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}
-                style={{ transitionDelay: '300ms' }}>
+              <div className={`relative h-[400px] md:h-[500px] group/image transition-all duration-700 ${showContent && animate ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}
+                style={{ transitionDelay: '500ms' }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl backdrop-blur-sm border border-white/20 overflow-hidden transition-all duration-500 hover:border-white/40 hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]">
-                  {/* Placeholder for project image */}
                   <div className="w-full h-full flex items-center justify-center bg-white/5 relative overflow-hidden">
                     {project.image ? (
                       <img
@@ -353,33 +365,54 @@ export default function Projects(active: { active: boolean }) {
                       </div>
                     )}
 
-                    {/* Animated gradient overlay */}
                     <div className="absolute inset-0 opacity-0 group-hover/image:opacity-100 transition-opacity duration-500"
                       style={{
                         background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent)',
-                        animation: 'shimmer 2s infinite'
+                        animationName: 'shimmer',
+                        animationDuration: '2s',
+                        animationIterationCount: 'infinite'
                       }}></div>
                   </div>
 
-                  {/* Image overlay gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover/image:opacity-100 transition-opacity duration-500"></div>
                 </div>
 
-                {/* Decorative corner accents */}
                 <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-white/30 rounded-tl-lg transition-all duration-500 group-hover/image:w-12 group-hover/image:h-12 group-hover/image:border-white/60"></div>
                 <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-white/30 rounded-br-lg transition-all duration-500 group-hover/image:w-12 group-hover/image:h-12 group-hover/image:border-white/60"></div>
 
-                {/* Floating orbs */}
                 <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/5 rounded-full blur-xl animate-pulse"></div>
                 <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
               </div>
             </div>
 
-            {/* Floating Elements */}
-            <div className="absolute top-20 left-20 w-2 h-2 bg-white/20 rounded-full animate-[float_6s_ease-in-out_infinite]"></div>
-            <div className="absolute bottom-32 right-32 w-3 h-3 bg-white/15 rounded-full animate-[float_8s_ease-in-out_infinite]"></div>
-            <div className="absolute top-1/3 right-20 w-2 h-2 bg-white/10 rounded-full animate-[float_7s_ease-in-out_infinite]"></div>
-            <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-white/10 rounded-full animate-[float_9s_ease-in-out_infinite]"></div>
+            <div className="absolute top-20 left-20 w-2 h-2 bg-white/20 rounded-full"
+              style={{
+                animationName: 'float',
+                animationDuration: '6s',
+                animationTimingFunction: 'ease-in-out',
+                animationIterationCount: 'infinite'
+              }}></div>
+            <div className="absolute bottom-32 right-32 w-3 h-3 bg-white/15 rounded-full"
+              style={{
+                animationName: 'float',
+                animationDuration: '8s',
+                animationTimingFunction: 'ease-in-out',
+                animationIterationCount: 'infinite'
+              }}></div>
+            <div className="absolute top-1/3 right-20 w-2 h-2 bg-white/10 rounded-full"
+              style={{
+                animationName: 'float',
+                animationDuration: '7s',
+                animationTimingFunction: 'ease-in-out',
+                animationIterationCount: 'infinite'
+              }}></div>
+            <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-white/10 rounded-full"
+              style={{
+                animationName: 'float',
+                animationDuration: '9s',
+                animationTimingFunction: 'ease-in-out',
+                animationIterationCount: 'infinite'
+              }}></div>
           </div>
         ))}
       </div>
@@ -473,61 +506,6 @@ export default function Projects(active: { active: boolean }) {
           }
           50% {
             transform: translateY(-20px);
-          }
-        }
-        
-        @keyframes fadeInUp {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideInLeft {
-          0% {
-            opacity: 0;
-            transform: translateX(-50px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInRight {
-          0% {
-            opacity: 0;
-            transform: translateX(50px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes expandWidth {
-          0% {
-            width: 0;
-            opacity: 0;
-          }
-          100% {
-            width: 8rem;
-            opacity: 1;
-          }
-        }
-
-        @keyframes scrollDown {
-          0% {
-            transform: translateY(0);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(16px);
-            opacity: 0;
           }
         }
 
