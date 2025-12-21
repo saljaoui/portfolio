@@ -2,14 +2,15 @@
 
 import { useRef, useEffect, useState } from "react";
 
-export default function Hero() {
+export default function Hero(active: { active: boolean }) {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [animate, setAnimate] = useState(false);
 
-  // Loading sequence
+  // Loading sequence - only on initial mount
   useEffect(() => {
     const interval = setInterval(() => {
       setLoadingProgress(prev => {
@@ -18,6 +19,7 @@ export default function Hero() {
           setTimeout(() => {
             setLoading(false);
             setMounted(true);
+            setAnimate(true);
           }, 500);
           return 100;
         }
@@ -27,6 +29,19 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
+
+  // Handle section active state
+  useEffect(() => {
+    if (!loading) {
+      if (active.active) {
+        setAnimate(false);
+        const t = setTimeout(() => setAnimate(true), 50);
+        return () => clearTimeout(t);
+      } else {
+        setAnimate(false);
+      }
+    }
+  }, [active.active, loading]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -152,14 +167,14 @@ export default function Hero() {
         const particleAngle = (i / numParticles) * Math.PI * 2 + time * 0.5;
         const depth = (i % 3) / 3;
         const orbitRadius = baseRadius * (1.1 + depth * 0.4 + Math.sin(time + i) * 0.15);
-        
+
         const px = centerX + Math.cos(particleAngle) * orbitRadius * easeOut;
         const py = centerY + Math.sin(particleAngle) * orbitRadius * easeOut;
-        
+
         const size = 2 + depth * 1.5;
         const pulse = Math.sin(time * 2 + i * 0.5) * 0.3;
         const opacity = (0.4 + pulse + depth * 0.2) * easeOut;
-        
+
         ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
         ctx.shadowBlur = 8 + depth * 6;
         ctx.shadowColor = `rgba(255, 255, 255, ${opacity * 0.8})`;
@@ -176,7 +191,7 @@ export default function Hero() {
       coreGradient.addColorStop(0, `rgba(255, 255, 255, ${0.2 * easeOut})`);
       coreGradient.addColorStop(0.6, `rgba(255, 255, 255, ${0.08 * easeOut})`);
       coreGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      
+
       ctx.shadowBlur = 30;
       ctx.shadowColor = `rgba(255, 255, 255, ${0.2 * easeOut})`;
       ctx.fillStyle = coreGradient;
@@ -200,27 +215,23 @@ export default function Hero() {
 
   return (
     <>
-      {/* Loading Screen */}
-      <div 
-        className={`absolute w-screen h-screen inset-0 bg-black z-50 flex items-center justify-center transition-all duration-700 ${
-          loading ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+      {/* Loading Screen - Only shows on initial load */}
+      <div
+        className={`absolute w-screen h-screen inset-0 bg-black z-50 flex items-center justify-center transition-all duration-700 ${loading ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
       >
         <div className="flex flex-col items-center gap-8">
-          {/* Logo or Name */}
           <h1 className="text-5xl font-bold text-white tracking-wider">
             SOUFIANE
           </h1>
-          
-          {/* Loading Bar */}
+
           <div className="w-64 h-0.5 bg-white/20 relative overflow-hidden">
-            <div 
+            <div
               className="absolute left-0 top-0 h-full bg-white transition-all duration-300 ease-out"
               style={{ width: `${loadingProgress}%` }}
             />
           </div>
-          
-          {/* Percentage */}
+
           <p className="text-white/60 text-sm tracking-widest">
             {loadingProgress}%
           </p>
@@ -233,21 +244,19 @@ export default function Hero() {
           ref={canvasRef}
           className="absolute top-0 left-0 w-full h-full"
         />
-        
+
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
-            className={`absolute -top-20 -left-20 w-[600px] h-[600px] transition-all duration-1000 ${
-              mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
-            }`}
+            className={`absolute -top-20 -left-20 w-[600px] h-[600px] transition-all duration-1000 ${mounted && animate ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+              }`}
             style={{
               background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%)',
               filter: 'blur(40px)',
             }}
           />
           <div
-            className={`absolute top-0 left-0 w-1/3 h-1/2 transition-all duration-1000 delay-200 ${
-              mounted ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute top-0 left-0 w-1/3 h-1/2 transition-all duration-1000 delay-200 ${mounted && animate ? 'opacity-100' : 'opacity-0'
+              }`}
             style={{
               background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%)',
             }}
@@ -256,50 +265,51 @@ export default function Hero() {
 
         <div className="absolute inset-0 flex items-center justify-between px-12 z-10">
           <div className="flex-1 flex flex-col justify-center items-start pl-12">
-            <div 
-              className={`flex items-center gap-3 mb-8 transition-all duration-700 ${
-                mounted ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
-              }`}
+            <div
+              className={`flex items-center gap-3 mb-8 transition-all duration-700 ${mounted && animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+                }`}
             >
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               <p className="text-white/60 text-xs tracking-widest">
                 OPEN TO WORK
               </p>
             </div>
-            
+
             <h1
-              className={`text-6xl font-semibold text-white mb-4 transition-all duration-700 delay-100 ${
-                mounted ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
-              }`}
-              style={{ letterSpacing: "-0.02em" }}
+              className={`text-6xl font-semibold text-white mb-4 transition-all duration-700 ${mounted && animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+                }`}
+              style={{ 
+                letterSpacing: "-0.02em",
+                transitionDelay: '100ms'
+              }}
             >
               FULL <span className="font-sans font-semibold">STACK</span>
             </h1>
-            
+
             <h1
-              className={`text-6xl font-medium text-white/10 mb-10 transition-all duration-700 delay-200 ${
-                mounted ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
-              }`}
+              className={`text-6xl font-medium text-white/10 mb-10 transition-all duration-700 ${mounted && animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+                }`}
               style={{
                 letterSpacing: "-0.02em",
                 WebkitTextStroke: "1px rgba(255,255,255,0.4)",
+                transitionDelay: '200ms'
               }}
             >
               DEVELOPER
             </h1>
 
-            <p 
-              className={`text-white/40 text-xs tracking-wider mt-8 transition-all duration-700 delay-300 ${
-                mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-              }`}
+            <p
+              className={`text-white/40 text-xs tracking-wider mt-8 transition-all duration-700 ${mounted && animate ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+                }`}
+              style={{ transitionDelay: '300ms' }}
             >
               /// DOWNLOAD RESUME
             </p>
-            
-            <div 
-              className={`flex gap-4 mt-4 transition-all duration-700 delay-400 ${
-                mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-              }`}
+
+            <div
+              className={`flex gap-4 mt-4 transition-all duration-700 ${mounted && animate ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+                }`}
+              style={{ transitionDelay: '400ms' }}
             >
               <button className="px-3 py-3 border border-white/30 bg-white text-black text-sm transition-all hover:scale-105 flex gap-2">
                 ENGLISH VERSION
@@ -318,11 +328,11 @@ export default function Hero() {
 
           <div className="flex-shrink-0 relative">
             <div
-              className={`relative w-[300px] h-[450px] lg:w-[500px] lg:h-[550px] group transition-all duration-1000 delay-300 ${
-                mounted ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-12 opacity-0 scale-95'
-              }`}
+              className={`relative w-[300px] h-[450px] lg:w-[500px] lg:h-[550px] group transition-all duration-1000 ${mounted && animate ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-12 opacity-0 scale-95'
+                }`}
               style={{
                 perspective: "1000px",
+                transitionDelay: '300ms'
               }}
             >
               <div
@@ -344,10 +354,10 @@ export default function Hero() {
           </div>
 
           <div className="flex-1 flex flex-col justify-center items-end pr-12 text-right">
-            <p 
-              className={`text-white/60 text-sm leading-relaxed max-w-md mb-8 transition-all duration-700 delay-200 ${
-                mounted ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
-              }`}
+            <p
+              className={`text-white/60 text-sm leading-relaxed max-w-md mb-8 transition-all duration-700 ${mounted && animate ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
+                }`}
+              style={{ transitionDelay: '200ms' }}
             >
               Building seamless digital experiences where solid
               <br />
@@ -356,10 +366,9 @@ export default function Hero() {
               design. Based in morocco.
             </p>
 
-            <button 
-              className={`px-8 py-4 border border-white/30 text-white text-sm tracking-widest hover:bg-white hover:text-black transition-all mb-16 flex items-center gap-4 hover:scale-105 ${
-                mounted ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
-              }`}
+            <button
+              className={`px-8 py-4 border border-white/30 text-white text-sm tracking-widest hover:bg-white hover:text-black transition-all mb-16 flex items-center gap-4 hover:scale-105 ${mounted && animate ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
+                }`}
               style={{ transitionDelay: '400ms' }}
             >
               MORE ABOUT ME
@@ -373,27 +382,30 @@ export default function Hero() {
           </div>
         </div>
 
-        <div 
-          className={`absolute w-full flex justify-center right-0 left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-all duration-1000 delay-500 ${
-            mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
-          }`}
+        <div
+          className={`absolute w-full flex justify-center right-0 left-0 top-1/2 -translate-y-1/2 pointer-events-none transition-all duration-1000 ${mounted && animate ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
+            }`}
+          style={{ transitionDelay: '500ms' }}
         >
           <span className="text-[17rem] font-bold text-white/5 leading-none">
             SOUFIANE
           </span>
         </div>
 
-        <div 
-          className={`absolute bottom-20 left-24 right-24 z-20 flex flex-col items-center transition-all duration-1000 delay-600 ${
-            mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}
+        <div
+          className={`absolute bottom-20 left-24 right-24 z-20 flex flex-col items-center transition-all duration-1000 ${mounted && animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+          style={{ transitionDelay: '600ms' }}
         >
           <div className="flex items-center w-full">
             <div className="flex-1 h-px bg-gradient-to-r from-white/20 via-white/40 to-white/30 relative overflow-hidden">
               <div
                 className="absolute inset-0 h-full w-32 bg-gradient-to-r from-transparent via-white/80 to-transparent"
                 style={{
-                  animation: 'flowRight 2.5s ease-in-out infinite',
+                  animationName: 'flowRight',
+                  animationDuration: '2.5s',
+                  animationTimingFunction: 'ease-in-out',
+                  animationIterationCount: 'infinite'
                 }}
               />
             </div>
@@ -402,14 +414,16 @@ export default function Hero() {
               <div
                 className="absolute inset-0 bg-white/20 blur-xl rounded-full"
                 style={{
-                  animation: 'glow 2s ease-in-out infinite',
+                  animationName: 'glow',
+                  animationDuration: '2s',
+                  animationTimingFunction: 'ease-in-out',
+                  animationIterationCount: 'infinite'
                 }}
               />
               <div
                 className="relative text-white/70 text-base"
                 style={{
                   textShadow: '0 0 20px rgba(255,255,255,0.6)',
-                  animation: 'arrowPulse 2.5s ease-in-out infinite',
                 }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">

@@ -136,7 +136,7 @@ export default function Home() {
           willChange: "transform",
         }}
       >
-        <Hero />
+        <Hero active={currentSection === 0} />
         <About active={currentSection === 1} />
         <Skills active={currentSection === 2} />
         <Projects active={currentSection === 3} />
