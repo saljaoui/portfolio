@@ -142,22 +142,6 @@ export default function Home() {
         <Projects />
         <Contact />
       </main>
-
-      <div className="fixed bottom-7 right-1/2 translate-x-1/2 z-50 flex gap-3 mix-blend-difference">
-        {[...Array(totalSections)].map((_, i) => (
-          <button
-            key={i}
-            onClick={() => handleNavigation(i)}
-            className={`px-3 py-1 border border-white transition-all duration-300 hover:bg-white/10 ${i === currentSection
-              ? "bg-white text-black font-medium"
-              : "bg-transparent text-white"
-              }`}
-            aria-label={`Go to section ${i + 1}`}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
     </div>
   );
 }
