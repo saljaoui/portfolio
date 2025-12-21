@@ -221,10 +221,9 @@ export default function Hero(active: { active: boolean }) {
           }`}
       >
         <div className="flex flex-col items-center gap-8">
-            <div className='h-10 w-10' >
-               <img src="/images/logo.png" alt="Logo" />
-            </div>
-
+          <div className='h-10 w-10' >
+            <img src="/images/logo.png" alt="Logo" />
+          </div>
           <div className="w-64 h-0.5 bg-white/20 relative overflow-hidden">
             <div
               className="absolute left-0 top-0 h-full bg-white transition-all duration-300 ease-out"
@@ -278,7 +277,7 @@ export default function Hero(active: { active: boolean }) {
             <h1
               className={`text-6xl font-semibold text-white mb-4 transition-all duration-700 ${mounted && animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
                 }`}
-              style={{ 
+              style={{
                 letterSpacing: "-0.02em",
                 transitionDelay: '100ms'
               }}
