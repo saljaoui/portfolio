@@ -1,4 +1,19 @@
-export default function Skills() {
+import { useEffect, useState } from "react";
+
+export default function Skills(active: { active: boolean }) {
+
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (active.active) {
+      setAnimate(false);
+      const t = setTimeout(() => setAnimate(true), 50);
+      return () => clearTimeout(t);
+    } else {
+      setAnimate(false);
+    }
+  }, [active.active]);
+
   const categories = [
     {
       title: "Frontend",
@@ -56,8 +71,9 @@ export default function Skills() {
 
       <div className="max-w-7xl w-full relative z-10">
         {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-2">
+        <div className={`mb-12 transition-all duration-700 ${animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+          }`}>
+            <h1 className="text-5xl md:text-6xl font-bold mb-2">
             <span className="text-white">TECH</span>{" "}
             <span
               className="text-white/10"
@@ -73,12 +89,17 @@ export default function Skills() {
           <p className="text-gray-500 text-sm mt-3 max-w-xl">
             Technologies I use to build modern, scalable applications
           </p>
-        </div>
+          </div>
 
         {/* Skills Categories - Horizontal Layout */}
         <div className="flex gap-8 items-start">
           {categories.map((category, idx) => (
-            <div key={idx} className="flex-1 min-w-0">
+            <div
+              key={idx}
+              className={`flex-1 min-w-0 transition-all duration-700 ${animate ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+                }`}
+              style={{ transitionDelay: `${idx * 150 + 200}ms` }}
+            >
               {/* Category Title */}
               <div className="mb-5">
                 <h3 className="text-xs font-bold text-white/60 uppercase tracking-widest mb-2">
@@ -89,11 +110,14 @@ export default function Skills() {
 
               {/* Skills List */}
               <div className="space-y-2.5">
-                {category.skills.map((skill, skillIdx) => (
-                  <div
-                    key={skillIdx}
-                    className="group cursor-pointer"
-                  >
+{category.skills.map((skill, skillIdx) => (
+  <div
+    key={skillIdx}
+    className={`group cursor-pointer transition-all duration-700 ${
+      animate ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
+    }`}
+    style={{ transitionDelay: `${idx * 150 + skillIdx * 100 + 400}ms` }}
+  >
                     {/* Icon Placeholder + Skill Name */}
                     <div className="flex items-center gap-3 p-2.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/25 transition-all duration-300 hover:-translate-y-0.5">
                       {/* Icon Circle */}
@@ -109,7 +133,7 @@ export default function Skills() {
                           </span>
                         )}
                       </div>
-                      
+
                       {/* Skill Name */}
                       <span className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
                         {skill.name}
@@ -123,7 +147,10 @@ export default function Skills() {
         </div>
 
         {/* Bottom Note */}
-        <div className="mt-10 flex items-center gap-2">
+<div className={`mt-10 flex items-center gap-2 transition-all duration-700 ${
+  animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+}`}
+style={{ transitionDelay: '1000ms' }}>
           <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
           <p className="text-gray-600 text-xs">
             Continuously learning and expanding my toolkit

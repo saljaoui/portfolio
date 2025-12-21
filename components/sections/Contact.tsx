@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Contact(active: { active: boolean }) {
+  const [animate, setAnimate] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -9,14 +10,22 @@ export default function Contact(active: { active: boolean }) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (active.active) {
+      setAnimate(false);
+      const t = setTimeout(() => setAnimate(true), 50);
+      return () => clearTimeout(t);
+    } else {
+      setAnimate(false);
+    }
+  }, [active.active]);
+
   const handleSubmit = () => {
     setIsSubmitting(true);
     console.log('Form submitted:', formData);
 
-    // Simulate submission
     setTimeout(() => {
       setIsSubmitting(false);
-      // Reset form or show success message
     }, 2000);
   };
 
@@ -31,7 +40,9 @@ export default function Contact(active: { active: boolean }) {
     <section id="contact" className="w-screen h-screen flex-shrink-0 bg-white text-black relative flex items-center justify-center px-8 py-6 overflow-hidden">
       {/* Dot Pattern Background */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className={`absolute inset-0 opacity-[0.03] pointer-events-none transition-opacity duration-1000 ${
+          animate ? 'opacity-[0.03]' : 'opacity-0'
+        }`}
         style={{
           backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
           backgroundSize: "20px 20px",
@@ -39,36 +50,70 @@ export default function Contact(active: { active: boolean }) {
       ></div>
 
       {/* Animated Gradient Orbs */}
-      <div className="absolute top-10 left-10 w-72 h-72 bg-gray-200/30 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-gray-300/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div 
+        className={`absolute top-10 left-10 w-72 h-72 bg-gray-200/30 rounded-full blur-3xl transition-all duration-1000 ${
+          animate ? 'opacity-100 scale-100 animate-pulse' : 'opacity-0 scale-50'
+        }`}
+      ></div>
+      <div 
+        className={`absolute bottom-10 right-10 w-72 h-72 bg-gray-300/20 rounded-full blur-3xl transition-all duration-1000 ${
+          animate ? 'opacity-100 scale-100 animate-pulse' : 'opacity-0 scale-50'
+        }`}
+        style={{ 
+          animationDelay: animate ? '1s' : undefined
+        }}
+      ></div>
 
       <div className="max-w-6xl w-full h-full relative z-10 flex gap-10 items-center">
         {/* Left Side - Info */}
-        <div className="flex-1 space-y-6 animate-[slideInLeft_0.8s_ease-out]">
+        <div className="flex-1 space-y-6">
           <div className="mb-6">
-            <p className="text-xs text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+            <p 
+              className={`text-xs text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2 transition-all duration-700 ${
+                animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+              }`}
+            >
               <span className="w-6 h-px bg-gray-400"></span>
               GET IN TOUCH
             </p>
-            <h1 className="text-5xl md:text-6xl font-bold mb-2 animate-[slideInLeft_0.6s_ease-out]">
+            <h1 
+              className={`text-5xl md:text-6xl font-bold mb-2 transition-all duration-700 ${
+                animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+              }`}
+              style={{ transitionDelay: '100ms' }}
+            >
               LET'S WORK
             </h1>
-            <h1 className="text-5xl md:text-6xl font-bold mb-5 animate-[slideInLeft_0.7s_ease-out]"
+            <h1 
+              className={`text-5xl md:text-6xl font-bold mb-5 transition-all duration-700 ${
+                animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+              }`}
               style={{
                 WebkitTextStroke: "2px rgba(0, 0, 0, 1)",
-                color: "transparent"
+                color: "transparent",
+                transitionDelay: '200ms'
               }}
             >
               TOGETHER.
             </h1>
-            <p className="text-gray-600 leading-relaxed max-w-md animate-[fadeIn_0.8s_ease-out]">
+            <p 
+              className={`text-gray-600 leading-relaxed max-w-md transition-all duration-700 ${
+                animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+              }`}
+              style={{ transitionDelay: '300ms' }}
+            >
               I'm available for freelance work. Have a project in mind? Send a message or reach out directly.
             </p>
           </div>
 
           {/* Contact Details */}
           <div className="space-y-4">
-            <div className="flex items-start gap-3 group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300 animate-[slideInLeft_0.9s_ease-out]">
+            <div 
+              className={`flex items-start gap-3 group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-700 ${
+                animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+              }`}
+              style={{ transitionDelay: '400ms' }}
+            >
               <div className="p-2.5 bg-black text-white rounded-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 36 36">
                   <path fill="currentColor" d="M32 6H4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2Zm-1.54 22H5.66l7-7.24l-1.44-1.39L4 26.84V9.52l12.43 12.37a2 2 0 0 0 2.82 0L32 9.21v17.5l-7.36-7.36l-1.41 1.41ZM5.31 8h25.07L17.84 20.47Z" />
@@ -81,7 +126,12 @@ export default function Contact(active: { active: boolean }) {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300 animate-[slideInLeft_1s_ease-out]">
+            <div 
+              className={`flex items-start gap-3 group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-700 ${
+                animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+              }`}
+              style={{ transitionDelay: '500ms' }}
+            >
               <div className="p-2.5 bg-black text-white rounded-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
                   <path fill="currentColor" d="m16.1 13.359l-.528-.532l.529.532Zm.456-.453l.529.532l-.529-.532Zm2.417-.317l-.358.66l.358-.66Zm1.91 1.039l-.358.659l.358-.659Zm.539 3.255l.529.532l-.53-.532Zm-1.42 1.412l-.53-.531l.53.531Zm-1.326.67l.07.747l-.07-.747Zm-9.86-4.238l.528-.532l-.529.532ZM4.002 5.746l-.749.042l.749-.042Zm6.474 1.451l.53.532l-.53-.532Zm.157-2.654l.6-.449l-.6.45ZM9.374 2.86l-.601.45l.6-.45ZM6.26 2.575l.53.532l-.53-.532Zm-1.57 1.56l-.528-.531l.529.532Zm7.372 7.362l.529-.532l-.529.532Zm4.566 2.394l.456-.453l-1.058-1.064l-.455.453l1.058 1.064Zm1.986-.643l1.91 1.039l.716-1.318l-1.91-1.038l-.716 1.317Zm2.278 3.103l-1.42 1.413l1.057 1.063l1.42-1.412l-1.057-1.064Zm-2.286 1.867c-1.45.136-5.201.015-9.263-4.023l-1.057 1.063c4.432 4.407 8.65 4.623 10.459 4.454l-.14-1.494Zm-9.263-4.023c-3.871-3.85-4.512-7.087-4.592-8.492l-1.498.085c.1 1.768.895 5.356 5.033 9.47l1.057-1.063Zm1.376-6.18l.286-.286L9.95 6.666l-.287.285l1.057 1.063Zm.515-3.921L9.974 2.41l-1.201.899l1.26 1.684l1.202-.899ZM5.733 2.043l-1.57 1.56l1.058 1.064l1.57-1.56l-1.058-1.064Zm4.458 5.44c-.53-.532-.53-.532-.53-.53h-.002l-.003.004a1.064 1.064 0 0 0-.127.157c-.054.08-.113.185-.163.318a2.099 2.099 0 0 0-.088 1.071c.134.865.73 2.008 2.256 3.526l1.058-1.064c-1.429-1.42-1.769-2.284-1.832-2.692c-.03-.194.001-.29.01-.312c.005-.014.007-.015 0-.006a.276.276 0 0 1-.03.039l-.01.01a.203.203 0 0 1-.01.009l-.53-.53Zm1.343 4.546c1.527 1.518 2.676 2.11 3.542 2.242c.443.068.8.014 1.071-.087a1.536 1.536 0 0 0 .42-.236a.923.923 0 0 0 .05-.045l.007-.006l.003-.003l.001-.002s.002-.001-.527-.533c-.53-.532-.528-.533-.528-.533l.002-.002l.002-.002l.006-.005l.01-.01a.383.383 0 0 1 .038-.03c.01-.007.007-.004-.007.002c-.025.009-.123.04-.32.01c-.414-.064-1.284-.404-2.712-1.824l-1.058 1.064Zm-1.56-9.62C8.954 1.049 6.95.834 5.733 2.044L6.79 3.107c.532-.529 1.476-.475 1.983.202l1.2-.9ZM4.752 5.704c-.02-.346.139-.708.469-1.036L4.163 3.604c-.537.534-.96 1.29-.909 2.184l1.498-.085Zm14.72 12.06c-.274.274-.57.428-.865.455l.139 1.494c.735-.069 1.336-.44 1.784-.885l-1.058-1.063ZM11.006 7.73c.985-.979 1.058-2.527.229-3.635l-1.201.899c.403.539.343 1.246-.085 1.673l1.057 1.063Zm9.52 6.558c.817.444.944 1.49.367 2.064l1.058 1.064c1.34-1.333.927-3.557-.71-4.446l-.716 1.318Zm-3.441-.849c.384-.382 1.002-.476 1.53-.19l.716-1.317c-1.084-.59-2.428-.427-3.304.443l1.058 1.064Z" />
@@ -93,7 +143,12 @@ export default function Contact(active: { active: boolean }) {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300 animate-[slideInLeft_1.1s_ease-out]">
+            <div 
+              className={`flex items-start gap-3 group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-700 ${
+                animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
+              }`}
+              style={{ transitionDelay: '600ms' }}
+            >
               <div className="p-2.5 bg-black text-white rounded-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
                   <g fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -111,7 +166,12 @@ export default function Contact(active: { active: boolean }) {
           </div>
 
           {/* Social Links */}
-          <div className="flex gap-3 pt-4 border-t border-gray-200 animate-[fadeIn_1.2s_ease-out]">
+          <div 
+            className={`flex gap-3 pt-4 border-t border-gray-200 transition-all duration-700 ${
+              animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+            style={{ transitionDelay: '700ms' }}
+          >
             <a
               href="https://linkedin.com"
               target="_blank"
@@ -140,15 +200,35 @@ export default function Contact(active: { active: boolean }) {
         </div>
 
         {/* Right Side - Form */}
-        <div className="flex-1 animate-[slideInRight_0.8s_ease-out]">
+        <div 
+          className={`flex-1 transition-all duration-700 ${
+            animate ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
+          }`}
+          style={{ transitionDelay: '300ms' }}
+        >
           <div className="bg-white/80 backdrop-blur-sm p-7 rounded-xl shadow-xl border border-gray-200 relative overflow-hidden">
             {/* Decorative corners */}
-            <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-black/10 rounded-tl-xl"></div>
-            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-black/10 rounded-br-xl"></div>
+            <div 
+              className={`absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-black/10 rounded-tl-xl transition-all duration-1000 ${
+                animate ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
+              }`}
+              style={{ transitionDelay: '500ms' }}
+            ></div>
+            <div 
+              className={`absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-black/10 rounded-br-xl transition-all duration-1000 ${
+                animate ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
+              }`}
+              style={{ transitionDelay: '600ms' }}
+            ></div>
 
             <div className="space-y-5 relative z-10">
               {/* Name and Email Row */}
-              <div className="grid grid-cols-2 gap-3">
+              <div 
+                className={`grid grid-cols-2 gap-3 transition-all duration-700 ${
+                  animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: '700ms' }}
+              >
                 <div className="group">
                   <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
                     <span className="w-3 h-px bg-gray-400 group-hover:w-5 transition-all duration-300"></span>
@@ -159,7 +239,6 @@ export default function Contact(active: { active: boolean }) {
                       type="text"
                       value={formData.name}
                       onChange={(e) => handleChange('name', e.target.value)}
-
                       placeholder="John Doe"
                       className="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-lg focus:border-black focus:bg-white focus:shadow-md focus:outline-none transition-all text-sm"
                     />
@@ -183,7 +262,12 @@ export default function Contact(active: { active: boolean }) {
               </div>
 
               {/* Subject */}
-              <div>
+              <div 
+                className={`transition-all duration-700 ${
+                  animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: '800ms' }}
+              >
                 <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
                   <span className="w-3 h-px bg-gray-400"></span>
                   Subject
@@ -197,7 +281,6 @@ export default function Contact(active: { active: boolean }) {
                           ? 'bg-black text-white shadow-lg scale-105'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
                         }`}
-                      style={{ animationDelay: `${i * 50}ms` }}
                     >
                       {formData.subject === option && (
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite]"></div>
@@ -209,7 +292,12 @@ export default function Contact(active: { active: boolean }) {
               </div>
 
               {/* Message */}
-              <div className="group">
+              <div 
+                className={`group transition-all duration-700 ${
+                  animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: '900ms' }}
+              >
                 <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
                   <span className="w-3 h-px bg-gray-400 group-hover:w-5 transition-all duration-300"></span>
                   Message
@@ -229,9 +317,11 @@ export default function Contact(active: { active: boolean }) {
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full bg-black text-white py-3 rounded-lg font-bold uppercase tracking-wider hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group/submit hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden text-sm"
+                className={`w-full bg-black text-white py-3 rounded-lg font-bold uppercase tracking-wider hover:shadow-xl transition-all duration-700 flex items-center justify-center gap-2 group/submit hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden text-sm ${
+                  animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`}
+                style={{ transitionDelay: '1000ms' }}
               >
-                {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/submit:translate-x-full transition-transform duration-700"></div>
 
                 {isSubmitting ? (
@@ -251,7 +341,12 @@ export default function Contact(active: { active: boolean }) {
               </button>
 
               {/* Success message placeholder */}
-              <div className="text-center text-xs text-gray-500 italic">
+              <div 
+                className={`text-center text-xs text-gray-500 italic transition-all duration-700 ${
+                  animate ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+                }`}
+                style={{ transitionDelay: '1100ms' }}
+              >
                 Response within 24 hours
               </div>
             </div>
@@ -260,55 +355,6 @@ export default function Contact(active: { active: boolean }) {
       </div>
 
       <style jsx>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-
-        @keyframes slideInLeft {
-          0% {
-            opacity: 0;
-            transform: translateX(-50px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInRight {
-          0% {
-            opacity: 0;
-            transform: translateX(50px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-
-        @keyframes expandWidth {
-          0% {
-            width: 0;
-          }
-          100% {
-            width: 100%;
-          }
-        }
-
         @keyframes shimmer {
           0% {
             transform: translateX(-100%);
