@@ -48,7 +48,7 @@ const projects = [
   }
 ];
 
-export default function Projects() {
+export default function Projects(active: { active: boolean }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const isTransitioningRef = useRef(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -157,7 +157,7 @@ export default function Projects() {
   }, [currentIndex]);
 
   return (
-   <section className="w-screen h-screen flex-shrink-0 bg-black text-white relative overflow-hidden">
+    <section className="w-screen h-screen flex-shrink-0 bg-black text-white relative overflow-hidden">
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5 z-0">
         <div
@@ -245,13 +245,13 @@ export default function Projects() {
 
                 {/* Title */}
                 <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight transition-all duration-500 ${showContent ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
-                    style={{ transitionDelay: '100ms' }}>
+                  style={{ transitionDelay: '100ms' }}>
                   {project.title}
                 </h2>
 
                 {/* Description */}
                 <p className={`text-base md:text-lg text-gray-400 leading-relaxed mb-6 transition-all duration-500 ${showContent ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}
-                   style={{ transitionDelay: '200ms' }}>
+                  style={{ transitionDelay: '200ms' }}>
                   {project.description}
                 </p>
 
@@ -261,7 +261,7 @@ export default function Projects() {
                     <span
                       key={i}
                       className={`px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-xs font-medium text-gray-300 hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-default hover:scale-110 hover:rotate-2 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-                      style={{ 
+                      style={{
                         transitionDelay: `${300 + i * 100}ms`,
                         backdropFilter: 'blur(10px)'
                       }}
@@ -273,7 +273,7 @@ export default function Projects() {
 
                 {/* Action Buttons */}
                 <div className={`flex flex-wrap gap-4 pt-4 transition-all duration-500 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                     style={{ transitionDelay: '500ms' }}>
+                  style={{ transitionDelay: '500ms' }}>
                   {project.github && (
                     <a
                       href={project.github}
@@ -306,7 +306,7 @@ export default function Projects() {
 
                 {/* Project Stats */}
                 <div className={`flex gap-6 pt-6 border-t border-white/10 transition-all duration-500 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                     style={{ transitionDelay: '600ms' }}>
+                  style={{ transitionDelay: '600ms' }}>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-white mb-1">2024</div>
                     <div className="text-xs text-gray-500 uppercase tracking-wider">Year</div>
@@ -326,7 +326,7 @@ export default function Projects() {
 
               {/* Right Side - Project Image */}
               <div className={`relative h-[400px] md:h-[500px] group/image transition-all duration-700 ${showContent ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}
-                   style={{ transitionDelay: '300ms' }}>
+                style={{ transitionDelay: '300ms' }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl backdrop-blur-sm border border-white/20 overflow-hidden transition-all duration-500 hover:border-white/40 hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]">
                   {/* Placeholder for project image */}
                   <div className="w-full h-full flex items-center justify-center bg-white/5 relative overflow-hidden">
@@ -352,13 +352,13 @@ export default function Projects() {
                         </div>
                       </div>
                     )}
-                    
+
                     {/* Animated gradient overlay */}
                     <div className="absolute inset-0 opacity-0 group-hover/image:opacity-100 transition-opacity duration-500"
-                         style={{
-                           background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent)',
-                           animation: 'shimmer 2s infinite'
-                         }}></div>
+                      style={{
+                        background: 'linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent)',
+                        animation: 'shimmer 2s infinite'
+                      }}></div>
                   </div>
 
                   {/* Image overlay gradient */}
@@ -368,7 +368,7 @@ export default function Projects() {
                 {/* Decorative corner accents */}
                 <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-white/30 rounded-tl-lg transition-all duration-500 group-hover/image:w-12 group-hover/image:h-12 group-hover/image:border-white/60"></div>
                 <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-white/30 rounded-br-lg transition-all duration-500 group-hover/image:w-12 group-hover/image:h-12 group-hover/image:border-white/60"></div>
-                
+
                 {/* Floating orbs */}
                 <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/5 rounded-full blur-xl animate-pulse"></div>
                 <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>

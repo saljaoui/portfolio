@@ -73,7 +73,7 @@ export default function Skills(active: { active: boolean }) {
         {/* Header */}
         <div className={`mb-12 transition-all duration-700 ${animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'
           }`}>
-            <h1 className="text-5xl md:text-6xl font-bold mb-2">
+          <h1 className="text-5xl md:text-6xl font-bold mb-2">
             <span className="text-white">TECH</span>{" "}
             <span
               className="text-white/10"
@@ -89,7 +89,7 @@ export default function Skills(active: { active: boolean }) {
           <p className="text-gray-500 text-sm mt-3 max-w-xl">
             Technologies I use to build modern, scalable applications
           </p>
-          </div>
+        </div>
 
         {/* Skills Categories - Horizontal Layout */}
         <div className="flex gap-8 items-start">
@@ -110,14 +110,13 @@ export default function Skills(active: { active: boolean }) {
 
               {/* Skills List */}
               <div className="space-y-2.5">
-{category.skills.map((skill, skillIdx) => (
-  <div
-    key={skillIdx}
-    className={`group cursor-pointer transition-all duration-700 ${
-      animate ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
-    }`}
-    style={{ transitionDelay: `${idx * 150 + skillIdx * 100 + 400}ms` }}
-  >
+                {category.skills.map((skill, skillIdx) => (
+                  <div
+                    key={skillIdx}
+                    className={`group cursor-pointer transition-all duration-700 ${animate ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'
+                      }`}
+                    style={{ transitionDelay: `${idx * 150 + skillIdx * 100 + 400}ms` }}
+                  >
                     {/* Icon Placeholder + Skill Name */}
                     <div className="flex items-center gap-3 p-2.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/25 transition-all duration-300 hover:-translate-y-0.5">
                       {/* Icon Circle */}
@@ -147,10 +146,9 @@ export default function Skills(active: { active: boolean }) {
         </div>
 
         {/* Bottom Note */}
-<div className={`mt-10 flex items-center gap-2 transition-all duration-700 ${
-  animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-}`}
-style={{ transitionDelay: '1000ms' }}>
+        <div className={`mt-10 flex items-center gap-2 transition-all duration-700 ${animate ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+          }`}
+          style={{ transitionDelay: '1000ms' }}>
           <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
           <p className="text-gray-600 text-xs">
             Continuously learning and expanding my toolkit
