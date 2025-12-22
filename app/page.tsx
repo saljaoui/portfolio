@@ -106,15 +106,33 @@ export default function Home() {
   }, [currentSection]);
 
   // ✅ KEY FIX: Handler function that checks transitioningRef
-  const handleNavigation = (sectionIndex: SetStateAction<number>) => {
-    if (!isTransitioningRef.current) {
-      isTransitioningRef.current = true;
-      setCurrentSection(sectionIndex);
-      setTimeout(() => {
-        isTransitioningRef.current = false;
-      }, 2000);
-    }
+const handleNavigation = (sectionIndex: number) => {
+  if (currentSection === sectionIndex || isTransitioningRef.current) return;
+
+  isTransitioningRef.current = true;
+  const direction = sectionIndex > currentSection ? -1 : 1;
+
+  setCurrentSection(sectionIndex);
+  setBounceOffset(0);
+  setTranslateX(-sectionIndex * window.innerWidth);
+
+  // bounce animation
+  const t1 = setTimeout(() => setBounceOffset(15 * direction), 1200);
+  const t2 = setTimeout(() => setBounceOffset(-5 * direction), 1500);
+  const t3 = setTimeout(() => setBounceOffset(0), 1650);
+
+  // unlock transitions after animation finishes
+  setTimeout(() => {
+    isTransitioningRef.current = false;
+  }, 1650);
+
+  return () => {
+    clearTimeout(t1);
+    clearTimeout(t2);
+    clearTimeout(t3);
   };
+};
+
 
   return (
     <div>

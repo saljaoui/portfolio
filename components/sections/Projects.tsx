@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { projects } from '@/lib/data.js'
+import { Console } from 'console';
 
 export default function Projects(active: { active: boolean }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,6 +9,10 @@ export default function Projects(active: { active: boolean }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [scrollDirection, setScrollDirection] = useState('down');
   const [showContent, setShowContent] = useState(true);
+
+
+  console.log("active >>>><<<<", active.active);
+  
 
   // Initial animation when section becomes active
   useEffect(() => {
