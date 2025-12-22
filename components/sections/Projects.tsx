@@ -8,7 +8,7 @@ const projects = [
     description: "A revolutionary approach to modern design with seamless user experience and innovative features",
     tags: ["Design", "UX", "Innovation"],
     github: "https://github.com",
-    demo: "https://demo.example.com"
+    // demo: "https://demo.example.com"
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const projects = [
     description: "Building scalable solutions for tomorrow with cutting-edge cloud technologies",
     tags: ["Development", "Cloud", "Architecture"],
     github: "https://github.com",
-    demo: "https://demo.example.com"
+    // demo: "https://demo.example.com"
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const projects = [
     description: "Creating meaningful user experiences across all devices and platforms",
     tags: ["Product", "Strategy", "Growth"],
     github: "https://github.com",
-    demo: "https://demo.example.com"
+    // demo: "https://demo.example.com"
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ const projects = [
     description: "Pushing boundaries with cutting-edge tech and machine learning capabilities",
     tags: ["AI", "Machine Learning", "Data"],
     github: "https://github.com",
-    demo: "https://demo.example.com"
+    // demo: "https://demo.example.com"
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const projects = [
     description: "Transforming ideas into reality through research and development",
     tags: ["Innovation", "Research", "Impact"],
     github: "https://github.com",
-    demo: "https://demo.example.com"
+    // demo: "https://demo.example.com"
   }
 ];
 
@@ -292,7 +292,7 @@ export default function Projects(active: { active: boolean }) {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/btn flex items-center gap-2 px-6 py-3 bg-white text-black rounded-lg font-medium hover:bg-white/90 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] relative overflow-hidden"
+                      className="group/btn flex items-center gap-2 px-6 py-3 bg-white text-black font-medium hover:bg-white/90 transition-all duration-300 hover:scale-105 relative overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
                       <svg className="w-5 h-5 transition-transform duration-300 group-hover/btn:rotate-12 relative z-10" fill="currentColor" viewBox="0 0 24 24">

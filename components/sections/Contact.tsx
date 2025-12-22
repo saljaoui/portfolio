@@ -125,7 +125,7 @@ export default function Contact(active: { active: boolean }) {
                 <p className="font-medium text-sm text-black group-hover:text-gray-600 transition-colors truncate">soufian2022ff@gmail.com</p>
               </div>
             </div>
-
+            
             <div 
               className={`flex items-start gap-3 group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-700 ${
                 animate ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'

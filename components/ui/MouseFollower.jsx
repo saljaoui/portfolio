@@ -68,7 +68,7 @@ export default function SmoothMouseFollower() {
 
       // Apply transforms using translate3d for GPU acceleration
       ring.style.transform = `translate3d(${circle.current.x}px, ${circle.current.y}px, 0) translate(-50%, -50%) rotate(${currentAngle.current}deg) scale(${1 + currentScale.current}, ${1 - currentScale.current})`
-
+      
       dot.style.transform = `translate3d(${mouse.current.x}px, ${mouse.current.y}px, 0) translate(-50%, -50%)`
 
       rafId.current = requestAnimationFrame(animate)
@@ -89,12 +89,14 @@ export default function SmoothMouseFollower() {
       {/* Ring - smooth follow with squish */}
       <div
         ref={ringRef}
-        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-[width,height] duration-200 ${isHovering ? 'w-4 h-4' : 'w-10 h-10'
-          }`}
+        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-[width,height] duration-200 ${
+          isHovering ? 'w-4 h-4' : 'w-10 h-10'
+        }`}
         style={{
           mixBlendMode: 'difference',
-        }}>
-        <div
+        }}
+      >
+        <div 
           className="w-full border-1 h-full rounded-full transition-colors"
         />
       </div>
@@ -102,11 +104,13 @@ export default function SmoothMouseFollower() {
       {/* Dot - instant follow */}
       <div
         ref={dotRef}
-        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-[width,height] duration-200 ${isHovering ? 'w-10 h-10' : 'w-2 h-2'
-          }`}
+        className={`fixed top-0 left-0 pointer-events-none z-50 will-change-transform transition-[width,height] duration-200 ${
+          isHovering ? 'w-10 h-10' : 'w-2 h-2'
+        }`}
         style={{
           mixBlendMode: 'difference',
-        }}>
+        }}
+      >
         <div className="w-full h-full bg-white rounded-full" />
       </div>
     </>
