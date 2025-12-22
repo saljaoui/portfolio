@@ -15,7 +15,6 @@ export default function About(active: { active: boolean }) {
 
   return (
     <section className="w-screen h-screen flex-shrink-0 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center px-24 overflow-hidden relative">
-
       {/* Animated decorative circles */}
       <div 
         className={`absolute -top-16 mx-auto w-32 h-32 rounded-full border-2 border-gray-200 transition-all duration-1000 ${
