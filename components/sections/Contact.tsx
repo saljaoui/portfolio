@@ -230,7 +230,7 @@ export default function Contact(active: { active: boolean }) {
                 style={{ transitionDelay: '700ms' }}
               >
                 <div className="group">
-                  <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
+                  <label className="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
                     <span className="w-3 h-px bg-gray-400 group-hover:w-5 transition-all duration-300"></span>
                     Name
                   </label>
@@ -245,7 +245,7 @@ export default function Contact(active: { active: boolean }) {
                   </div>
                 </div>
                 <div className="group">
-                  <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
+                  <label className="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
                     <span className="w-3 h-px bg-gray-400 group-hover:w-5 transition-all duration-300"></span>
                     Email
                   </label>
@@ -268,7 +268,7 @@ export default function Contact(active: { active: boolean }) {
                 }`}
                 style={{ transitionDelay: '800ms' }}
               >
-                <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
+                <label className="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
                   <span className="w-3 h-px bg-gray-400"></span>
                   Subject
                 </label>
@@ -298,7 +298,7 @@ export default function Contact(active: { active: boolean }) {
                 }`}
                 style={{ transitionDelay: '900ms' }}
               >
-                <label className="block text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
+                <label className="text-xs text-gray-600 uppercase tracking-wider font-semibold mb-2 flex items-center gap-2">
                   <span className="w-3 h-px bg-gray-400 group-hover:w-5 transition-all duration-300"></span>
                   Message
                 </label>
