@@ -5,8 +5,12 @@ import MouseFollower from '@/components/ui/MouseFollower.jsx'
 import { ReactNode } from 'react'
 
 export const metadata = {
-  title: 'Your Name - Portfolio',
+  title: 'SOUFIAN ALJAOUI | Portfolio',
   description: 'Web Developer Portfolio',
+  icons: {
+    icon: '/images/logo.png',
+  },
+
 }
 
 export default function RootLayout({
@@ -16,7 +20,6 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-gray-50">
         <MouseFollower />
-        {/* <Navigation /> */}
           {children}
       </body>
     </html>
