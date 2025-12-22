@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 
 export default function Hero(active: { active: boolean }) {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ export default function Hero(active: { active: boolean }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationFrameId;
+    let animationFrameId: number;
     let rotation = 0;
     let time = 0;
 
@@ -61,7 +61,7 @@ export default function Hero(active: { active: boolean }) {
     resize();
     window.addEventListener("resize", resize);
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: { clientX: number; clientY: number; }) => {
       mouseRef.current.targetX = (e.clientX / window.innerWidth - 0.5) * 2;
       mouseRef.current.targetY = (e.clientY / window.innerHeight - 0.5) * 2;
     };
