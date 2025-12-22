@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 
 export default function Contact(active: { active: boolean }) {
   const [animate, setAnimate] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: 'Web Design',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (active.active) {
