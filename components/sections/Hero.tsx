@@ -18,7 +18,7 @@ export default function Hero({ active }: HeroProps) {
     useLoadingAnimation(active);
 
   // Initialize canvas animation
-  useCanvasAnimation(canvasRef, loading, animate);
+  useCanvasAnimation(canvasRef as React.RefObject<HTMLCanvasElement>, loading, animate);
 
   return (
     <>

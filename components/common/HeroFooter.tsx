@@ -15,15 +15,6 @@ export const HeroFooter: FC<HeroFooterProps> = ({ mounted, animate }) => {
     >
       <div className="flex items-center w-full">
         <div className="flex-1 h-px bg-gradient-to-r from-white/20 via-white/40 to-white/30 relative overflow-hidden">
-          <div
-            className="absolute inset-0 h-full w-32 bg-gradient-to-r from-transparent via-white/80 to-transparent"
-            style={{
-              animationName: "flowRight",
-              animationDuration: "2.5s",
-              animationTimingFunction: "ease-in-out",
-              animationIterationCount: "infinite",
-            }}
-          />
         </div>
 
         <div className="relative px-4">
