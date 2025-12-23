@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { projects } from '@/lib/data.js'
-import { Console } from 'console';
 
 export default function Projects(active: { active: boolean }) {
   const [currentIndex, setCurrentIndex] = useState(0);
